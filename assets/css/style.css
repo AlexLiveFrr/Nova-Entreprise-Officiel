@@ -1,11 +1,13 @@
 /* --- CONFIGURATION TRANSPORT  MODE SOMBRE PERMANENT --- */
 :root {
-    --bg-color: #0f172a;
-    --text-color: #f1f5f9;
-    --card-bg: #1e293b;
+    --bg-color: #07030d;
+    --text-color: #f3e8ff;
+    --card-bg: #150a23;
     --input-bg: #ffffff; /* Changé en blanc pour la visibilité du texte noir */
-    --primary-yellow: #e8da92;
-    --primary-blue: #2563eb;
+    --primary-yellow: #d7a8ff;
+    --primary-blue: #b200ff;
+    --primary-mauve: #8a2be2;
+    --primary-black: #050308;
 }
 
 body {
@@ -138,8 +140,8 @@ h1 { font-size: clamp(2rem, 8vw, 4rem); }
 .btn-euro:hover { color: var(--primary-yellow) !important; }
 
 footer {
-    background-color: #020617;
-    border-top: 1px solid #1e293b;
+    background-color: var(--primary-black);
+    border-top: 1px solid #3c1361;
     margin-top: auto;
 }
 
@@ -245,4 +247,58 @@ footer {
     object-position: center;
     width: 100%;
     height: 100%;
+}
+
+/* --- THEME GLOBAL VIOLET / MAUVE / NOIR --- */
+.bg-slate-900,
+section.bg-slate-900,
+nav.bg-slate-900 {
+    background-color: #09050f !important;
+}
+
+.bg-slate-800,
+.bg-slate-800\/50,
+.bg-slate-800\/40 {
+    background-color: #150a23 !important;
+}
+
+.bg-slate-700,
+.bg-slate-700\/50 {
+    background-color: #241139 !important;
+}
+
+.text-yellow-400,
+.text-blue-400,
+.text-blue-600 {
+    color: #d7a8ff !important;
+}
+
+.border-blue-600,
+.border-yellow-400,
+.border-slate-700,
+.border-slate-600 {
+    border-color: #5a189a !important;
+}
+
+.bg-blue-600 {
+    background-color: #b200ff !important;
+}
+
+.bg-blue-700 {
+    background-color: #8a2be2 !important;
+}
+
+.hover\:bg-blue-700:hover,
+.hover\:bg-blue-600:hover,
+.hover\:bg-blue-500:hover {
+    background-color: #8a2be2 !important;
+}
+
+.hover\:text-yellow-400:hover,
+.hover\:text-blue-400:hover {
+    color: #f5ddff !important;
+}
+
+.text-glow {
+    text-shadow: 0 0 10px rgba(178, 0, 255, 0.55);
 }
