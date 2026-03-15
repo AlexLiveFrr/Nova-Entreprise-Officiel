@@ -25,7 +25,7 @@ async function sendWebhook(type, payload) {
         );
     }
 
-    const response = await fetch("api/webhook-proxy.php", {
+    const response = await fetch(resolveWebhookProxyUrl(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type, payload }),
@@ -44,6 +44,24 @@ async function sendWebhook(type, payload) {
     }
 
     return data;
+}
+
+function resolveWebhookProxyUrl() {
+    // Permet de surcharger facilement sans modifier le code (ex: window.WEBHOOK_PROXY_URL = "...").
+    if (typeof window.WEBHOOK_PROXY_URL === "string" && window.WEBHOOK_PROXY_URL.trim()) {
+        return window.WEBHOOK_PROXY_URL.trim();
+    }
+
+    const host = (window.location.hostname || "").toLowerCase();
+    const isGithubPages = host.endsWith(".github.io");
+
+    // GitHub Pages est statique: pas d'execution PHP locale.
+    if (isGithubPages) {
+        return "https://transport.fr/api/webhook-proxy.php";
+    }
+
+    // Cas standard (WAMP / OVH) : API relative au site courant.
+    return "api/webhook-proxy.php";
 }
 
 function initRecruitmentForm() {
