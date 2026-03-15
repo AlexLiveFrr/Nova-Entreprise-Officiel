@@ -1,4 +1,4 @@
-# Site Nova Entreprise Officiel (LTDRS)
+# Site Nova Entreprise Officiel
 
 Site vitrine + espace d'administration pour une entreprise virtuelle de transport (OMSI 2), avec gestion des services/convois, profils chauffeurs, statistiques et formulaires.
 
