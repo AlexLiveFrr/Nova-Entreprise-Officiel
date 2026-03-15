@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pourquoi nous choisir ? | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+
+<body>
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo Nova Entreprise Officiel" class="h-10 md:h-12 w-auto">
+                <span class="text-white text-xl font-black italic uppercase">NOVA ENTREPRISE <span class="text-yellow-400">OFFICIEL</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="flex items-center gap-6 text-white text-xs font-bold uppercase tracking-widest" id="nav-links">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Accueil</a></li>
+                <li><a href="entreprise.html" class="hover:text-yellow-400 transition">Entreprise</a></li>
+                <li><a href="pourquoinouschoisir.html" class="hover:text-yellow-400 transition">Pourquoi nous choisir ?</a></li>
+                <li><a href="equipe.html" class="hover:text-yellow-400 transition">👥 Équipe</a></li>
+                <li><a href="reglement.html" class="hover:text-yellow-400 transition">Règlement</a></li>                
+                <li><a href="partenaires.html" class="hover:text-yellow-400 transition">Partenaires</a></li>
+                <li><a href="contact.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Postuler</a></li>
+            </ul>
+        </div>
+    </nav>
+    </nav>
+
+    <!-- Script du menu burger -->
+    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/rewards.js"></script>
+    <script>
+        // Initialiser le système de récompenses
+        document.addEventListener('DOMContentLoaded', () => {
+            Rewards.displayRanks('ranks-container');
+            Rewards.displayRewardsBadges('rewards-container');
+        });
+    </script>
+
+    <section class="py-20 container mx-auto px-6">
+        <div class="text-center mb-16 animate-fade-in-up">
+            <h2 class="text-5xl font-black border-b-8 border-blue-600 inline-block uppercase italic pb-2 text-gradient">Pourquoi
+                Nova Entreprise Officiel ?</h2>
+            <p class="mt-4 text-gray-400">Découvrez ce qui fait de notre entreprise la référence sur OMSI 2.</p>
+        </div>
+
+        <div class="grid md:grid-cols-1 gap-8 max-w-4xl mx-auto">
+            <div class="bg-slate-800 p-8 rounded-xl border-l-8 border-blue-600 shadow-xl hover-lift animate-fade-in-up delay-100">
+                <h3 class="text-2xl font-bold mb-4 text-yellow-400 uppercase italic">🤝 Communauté Engagée</h3>
+                <p class="text-lg leading-relaxed text-gray-200">Rejoignez une équipe passionnée où chaque membre est
+                    valorisé. Nous favorisons l'entraide, le respect et la camaraderie pour créer un environnement de
+                    travail agréable.</p>
+            </div>
+
+            <div class="bg-slate-800 p-8 rounded-xl border-l-8 border-blue-600 shadow-xl hover-lift animate-fade-in-up delay-200">
+                <h3 class="text-2xl font-bold mb-4 text-yellow-400 uppercase italic">🚌 Réalisme et Professionnalisme
+                </h3>
+                <p class="text-lg leading-relaxed text-gray-200">Nous mettons un point d'honneur à respecter les règles
+                    de conduite et les procédures de transport. Notre objectif est de fournir une expérience immersive.
+                </p>
+            </div>
+
+            <div class="bg-slate-800 p-8 rounded-xl border-l-8 border-blue-600 shadow-xl hover-lift animate-fade-in-up delay-300">
+                <h3 class="text-2xl font-bold mb-4 text-yellow-400 uppercase italic">📅 Événements et Services</h3>
+                <p class="text-lg leading-relaxed text-gray-200">Participez à des événements réguliers et des services
+                    organisés qui renforcent l'esprit d'équipe et offrent des opportunités uniques.</p>
+            </div>
+
+            <div class="bg-slate-800 p-8 rounded-xl border-l-8 border-blue-600 shadow-xl hover-lift animate-fade-in-up delay-400">
+                <h3 class="text-2xl font-bold mb-4 text-yellow-400 uppercase italic">🏆 Système de Récompenses</h3>
+                <p class="text-lg leading-relaxed text-gray-200">Gagnez des badges exclusifs et montez en grade grâce à vos performances. Chaque service vous rapproche de la légende !</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Système de Récompenses 
+    <section class="py-20 bg-slate-900 border-t border-blue-600/20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <h2 class="text-4xl md:text-5xl font-black uppercase italic text-white mb-4">
+                    <span class="text-gradient">Système de Récompenses</span>
+                </h2>
+                <p class="text-gray-400 text-lg">Débloquez des badges exclusifs et progressez dans les rangs</p>
+            </div>
+
+             Rangs 
+            <div class="mb-20">
+                <h3 class="text-3xl font-bold text-yellow-400 mb-8 text-center uppercase italic animate-fade-in-up">
+                    🎖️ Progression des Rangs
+                </h3>
+                <div class="grid gap-6 max-w-4xl mx-auto" id="ranks-container">
+                     Les rangs seront générés par JavaScript 
+                </div>
+            </div>
+
+             Badges 
+            <div>
+                <h3 class="text-3xl font-bold text-yellow-400 mb-8 text-center uppercase italic animate-fade-in-up">
+                    🏅 Badges à Débloquer
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6" id="rewards-container">
+                     Les badges seront générés par JavaScript 
+                </div>
+            </div>
+        </div>
+    </section>-->
+
+    <footer class="py-10 text-center border-t border-slate-800 mt-12">
+        <div class="container mx-auto px-6">
+            <img src="logo.png" alt="Logo" class="h-10 mx-auto mb-4 opacity-50">
+            <p class="text-gray-600 text-sm italic">"L'excellence sur chaque trajet - Nova Entreprise Officiel"</p>
+            <p class="text-gray-500 text-xs mt-4">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+        </div>
+    </footer>
+</body>
+
+</html>

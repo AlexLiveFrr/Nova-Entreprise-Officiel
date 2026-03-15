@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podium des Meilleurs Conducteurs | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/menu-dropdown.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        .podium-1 {
+            height: 280px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .podium-2 {
+            height: 220px;
+            background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+        }
+        .podium-3 {
+            height: 180px;
+            background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
+        }
+        .crown {
+            font-size: 4rem;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .sparkle {
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo Nova Entreprise Officiel" class="h-10 md:h-12 w-auto">
+                <span class="text-white text-xl font-black italic uppercase">NOVA ENTREPRISE <span class="text-yellow-400">OFFICIEL</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="flex items-center gap-6 text-white text-xs font-bold uppercase tracking-widest" id="nav-links">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Accueil</a></li>
+                <li><a href="entreprise.html" class="hover:text-yellow-400 transition">Entreprise</a></li>
+                <li><a href="pourquoinouschoisir.html" class="hover:text-yellow-400 transition">Pourquoi nous choisir ?</a></li>
+                <li><a href="equipe.html" class="hover:text-yellow-400 transition">👥 Équipe</a></li>
+                <li><a href="reglement.html" class="hover:text-yellow-400 transition">Règlement</a></li>                
+                <li><a href="partenaires.html" class="hover:text-yellow-400 transition">Partenaires</a></li>
+                <li><a href="contact.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Postuler</a></li>
+            </ul>
+        </div>
+    </nav>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-20 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 text-9xl">🏆</div>
+            <div class="absolute top-40 right-20 text-9xl">⭐</div>
+            <div class="absolute bottom-20 left-1/3 text-9xl">🎖️</div>
+        </div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="text-6xl font-black text-gradient mb-4 animate-fade-in-up">
+                🏆 PODIUM DES CHAMPIONS 🏆
+            </h1>
+            <p class="text-2xl text-gray-300 animate-fade-in-up delay-100">
+                Les 3 Meilleurs Conducteurs de Nova Entreprise Officiel
+            </p>
+            <div class="mt-6 flex justify-center gap-4 text-4xl animate-fade-in-up delay-200">
+                <span class="sparkle">✨</span>
+                <span class="sparkle" style="animation-delay: 0.3s;">⭐</span>
+                <span class="sparkle" style="animation-delay: 0.6s;">✨</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Podium -->
+    <div class="container mx-auto px-6 py-16">
+        <!-- Loading -->
+        <div id="loading" class="text-center py-12">
+            <div class="spinner mx-auto mb-4"></div>
+            <p class="text-gray-400 text-xl">Chargement du podium...</p>
+        </div>
+
+        <!-- Podium Container -->
+        <div id="podium-container" class="hidden">
+            <!-- Statistiques Globales -->
+            <div class="grid md:grid-cols-3 gap-6 mb-16 animate-fade-in-up">
+                <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl p-6 text-center">
+                    <div class="text-5xl mb-2">🚌</div>
+                    <div class="text-3xl font-black text-white" id="total-livraisons">0</div>
+                    <div class="text-yellow-200">Services Totaux</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-6 text-center">
+                    <div class="text-5xl mb-2">🌍</div>
+                    <div class="text-3xl font-black text-white" id="total-kilometres">0</div>
+                    <div class="text-blue-200">Kilomètres Parcourus</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl p-6 text-center">
+                    <div class="text-5xl mb-2">🚦</div>
+                    <div class="text-3xl font-black text-white" id="total-convois">0</div>
+                    <div class="text-purple-200">Services Effectués</div>
+                </div>
+            </div>
+
+            <!-- Le Podium -->
+            <div class="flex items-end justify-center gap-8 mb-16 animate-fade-in-up delay-200">
+                <!-- 2ème Place -->
+                <div id="podium-2" class="flex flex-col items-center w-64">
+                    <div class="bg-slate-800 rounded-xl p-6 mb-4 w-full text-center hover-lift">
+                        <div class="text-6xl mb-2">🥈</div>
+                        <img id="avatar-2" src="" alt="" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-400">
+                        <h3 id="pseudo-2" class="text-2xl font-black text-white mb-2">-</h3>
+                        <div id="rang-2" class="text-gray-400 mb-4">-</div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🚌 Services</span>
+                                <span id="livraisons-2" class="text-yellow-400 font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🌍 Kilomètres</span>
+                                <span id="kilometres-2" class="text-blue-400 font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🏅 Badges</span>
+                                <span id="badges-2" class="text-purple-400 font-bold">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="podium-2 w-full rounded-t-xl flex items-center justify-center">
+                        <span class="text-white text-6xl font-black">2</span>
+                    </div>
+                </div>
+
+                <!-- 1ère Place -->
+                <div id="podium-1" class="flex flex-col items-center w-72">
+                    <div class="crown mb-2">👑</div>
+                    <div class="bg-slate-800 rounded-xl p-8 mb-4 w-full text-center hover-lift border-4 border-yellow-400">
+                        <div class="text-7xl mb-2">🥇</div>
+                        <img id="avatar-1" src="" alt="" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-yellow-400">
+                        <h3 id="pseudo-1" class="text-3xl font-black text-gradient mb-2">-</h3>
+                        <div id="rang-1" class="text-yellow-400 text-lg mb-4">-</div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🚌 Services</span>
+                                <span id="livraisons-1" class="text-yellow-400 font-bold text-xl">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🌍 Kilomètres</span>
+                                <span id="kilometres-1" class="text-blue-400 font-bold text-xl">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🏅 Badges</span>
+                                <span id="badges-1" class="text-purple-400 font-bold text-xl">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="podium-1 w-full rounded-t-xl flex items-center justify-center">
+                        <span class="text-white text-7xl font-black">1</span>
+                    </div>
+                </div>
+
+                <!-- 3ème Place -->
+                <div id="podium-3" class="flex flex-col items-center w-64">
+                    <div class="bg-slate-800 rounded-xl p-6 mb-4 w-full text-center hover-lift">
+                        <div class="text-6xl mb-2">🥉</div>
+                        <img id="avatar-3" src="" alt="" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-orange-400">
+                        <h3 id="pseudo-3" class="text-2xl font-black text-white mb-2">-</h3>
+                        <div id="rang-3" class="text-gray-400 mb-4">-</div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🚌 Services</span>
+                                <span id="livraisons-3" class="text-yellow-400 font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🌍 Kilomètres</span>
+                                <span id="kilometres-3" class="text-blue-400 font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">🏅 Badges</span>
+                                <span id="badges-3" class="text-purple-400 font-bold">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="podium-3 w-full rounded-t-xl flex items-center justify-center">
+                        <span class="text-white text-6xl font-black">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boutons Actions -->
+            <div class="text-center animate-fade-in-up delay-300">
+                <a href="equipe.html" class="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-4 rounded-lg font-bold text-xl hover:scale-105 transition-transform">
+                    👥 Voir Toute l'Équipe
+                </a>
+            </div>
+        </div>
+
+        <!-- Message si pas assez de chauffeurs -->
+        <div id="no-data" class="hidden text-center py-12">
+            <div class="text-8xl mb-4">😢</div>
+            <h2 class="text-3xl font-bold text-white mb-4">Pas encore de podium</h2>
+            <p class="text-gray-400 text-xl">Il n'y a pas encore assez de conducteurs pour établir un classement.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8 border-t border-red-600">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm text-gray-500 mt-2">Podium mis à jour en temps réel</p>
+            <p class="text-gray-500 text-xs mt-4">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/menu.js"></script>
+    <script>
+        async function loadPodium() {
+            try {
+                const response = await fetch('/api/chauffeurs-get.php?limit=3&statut=actif');
+                const data = await response.json();
+
+                if (data.success && data.data && data.data.length > 0) {
+                    const chauffeurs = data.data;
+                    
+                    // Calculer les totaux
+                    let totalLivraisons = 0;
+                    let totalKilometres = 0;
+                    let totalConvois = 0;
+
+                    chauffeurs.forEach(c => {
+                        totalLivraisons += c.livraisons || 0;
+                        totalKilometres += c.kilometres || 0;
+                        totalConvois += c.convois_participes || 0;
+                    });
+
+                    document.getElementById('total-livraisons').textContent = totalLivraisons.toLocaleString();
+                    document.getElementById('total-kilometres').textContent = totalKilometres.toLocaleString() + ' km';
+                    document.getElementById('total-convois').textContent = totalConvois.toLocaleString();
+
+                    // Afficher les 3 premiers
+                    chauffeurs.forEach((c, index) => {
+                        const position = index + 1;
+                        const avatar = c.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.pseudo)}&size=128&background=2563eb&color=fff`;
+                        
+                        document.getElementById(`avatar-${position}`).src = avatar;
+                        document.getElementById(`pseudo-${position}`).textContent = c.pseudo;
+                        document.getElementById(`rang-${position}`).textContent = `${c.rang_icone || '🔰'} ${c.rang_nom || 'Apprenti'}`;
+                        document.getElementById(`livraisons-${position}`).textContent = (c.livraisons || 0).toLocaleString();
+                        document.getElementById(`kilometres-${position}`).textContent = (c.kilometres || 0).toLocaleString();
+                        document.getElementById(`badges-${position}`).textContent = c.nombre_badges || 0;
+                    });
+
+                    // Masquer les positions vides
+                    for (let i = chauffeurs.length + 1; i <= 3; i++) {
+                        const podiumDiv = document.getElementById(`podium-${i}`);
+                        if (podiumDiv) {
+                            podiumDiv.style.opacity = '0.3';
+                        }
+                    }
+
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('podium-container').classList.remove('hidden');
+                } else {
+                    document.getElementById('loading').classList.add('hidden');
+                    document.getElementById('no-data').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('no-data').classList.remove('hidden');
+            }
+        }
+
+        // Charger au démarrage
+        document.addEventListener('DOMContentLoaded', loadPodium);
+
+        // Recharger toutes les 30 secondes
+        setInterval(loadPodium, 30000);
+    </script>
+    <script src="assets/js/menu.js"></script>
+</body>
+
+</html>

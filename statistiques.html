@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/menu-dropdown.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo Nova Entreprise Officiel" class="h-10 md:h-12 w-auto">
+                <span class="text-white text-xl font-black italic uppercase">NOVA ENTREPRISE <span class="text-yellow-400">OFFICIEL</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="flex items-center gap-6 text-white text-xs font-bold uppercase tracking-widest" id="nav-links">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Accueil</a></li>
+                <li><a href="entreprise.html" class="hover:text-yellow-400 transition">Entreprise</a></li>
+                <li><a href="pourquoinouschoisir.html" class="hover:text-yellow-400 transition">Pourquoi nous choisir ?</a></li>
+                <li><a href="equipe.html" class="hover:text-yellow-400 transition">👥 Équipe</a></li>
+                <li><a href="reglement.html" class="hover:text-yellow-400 transition">Règlement</a></li>                
+                <li><a href="partenaires.html" class="hover:text-yellow-400 transition">Partenaires</a></li>
+                <li><a href="contact.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Postuler</a></li>
+            </ul>
+        </div>
+    </nav>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl font-black text-gradient mb-4 animate-fade-in-up">
+                📊 Tableau de Bord Statistiques
+            </h1>
+            <p class="text-xl text-gray-300 animate-fade-in-up delay-100">
+                Analyse détaillée des performances de 
+            </p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 py-12">
+        <!-- Statistiques Globales -->
+        <div class="grid md:grid-cols-4 gap-6 mb-12 animate-fade-in-up">
+            <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl p-6 text-center hover-lift">
+                <div class="text-5xl mb-2">🚌</div>
+                <div class="text-4xl font-black text-white" id="stat-livraisons">0</div>
+                <div class="text-yellow-200 font-bold">Services Totaux</div>
+            </div>
+            <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-6 text-center hover-lift">
+                <div class="text-5xl mb-2">🌍</div>
+                <div class="text-4xl font-black text-white" id="stat-kilometres">0</div>
+                <div class="text-blue-200 font-bold">Kilomètres</div>
+            </div>
+            <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl p-6 text-center hover-lift">
+                <div class="text-5xl mb-2">👥</div>
+                <div class="text-4xl font-black text-white" id="stat-chauffeurs">0</div>
+                <div class="text-purple-200 font-bold">Conducteurs Actifs</div>
+            </div>
+            <div class="bg-gradient-to-br from-green-600 to-green-800 rounded-xl p-6 text-center hover-lift">
+                <div class="text-5xl mb-2">🚦</div>
+                <div class="text-4xl font-black text-white" id="stat-convois">0</div>
+                <div class="text-green-200 font-bold">Services Effectués</div>
+            </div>
+        </div>
+
+        <!-- Graphiques -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <!-- Top 10 Conducteurs -->
+            <div class="bg-slate-800 rounded-xl p-6 animate-fade-in-up delay-100">
+                <h2 class="text-2xl font-bold text-yellow-400 mb-6">🏆 Top 10 Conducteurs</h2>
+                <canvas id="chart-top-chauffeurs"></canvas>
+            </div>
+
+            <!-- Répartition par Rang -->
+            <div class="bg-slate-800 rounded-xl p-6 animate-fade-in-up delay-200">
+                <h2 class="text-2xl font-bold text-blue-400 mb-6">🎖️ Répartition par Rang</h2>
+                <canvas id="chart-rangs"></canvas>
+            </div>
+        </div>
+
+        <!-- Statistiques Détaillées -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <!-- Statistiques Moyennes -->
+            <div class="bg-slate-800 rounded-xl p-6 animate-fade-in-up delay-300">
+                <h2 class="text-2xl font-bold text-green-400 mb-6">📈 Moyennes par Conducteur</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-slate-900 rounded-lg">
+                        <span class="text-gray-300">🚌 Services moyens</span>
+                        <span class="text-yellow-400 font-bold text-xl" id="avg-livraisons">0</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-slate-900 rounded-lg">
+                        <span class="text-gray-300">🌍 Kilomètres moyens</span>
+                        <span class="text-blue-400 font-bold text-xl" id="avg-kilometres">0</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-slate-900 rounded-lg">
+                        <span class="text-gray-300">⏱️ Heures moyennes</span>
+                        <span class="text-purple-400 font-bold text-xl" id="avg-heures">0</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-slate-900 rounded-lg">
+                        <span class="text-gray-300">🚦 Services moyens</span>
+                        <span class="text-green-400 font-bold text-xl" id="avg-convois">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Records -->
+            <div class="bg-slate-800 rounded-xl p-6 animate-fade-in-up delay-400">
+                <h2 class="text-2xl font-bold text-red-400 mb-6">🔥 Records</h2>
+                <div class="space-y-4">
+                    <div class="p-4 bg-gradient-to-r from-yellow-900/30 to-yellow-800/30 rounded-lg border-l-4 border-yellow-400">
+                        <div class="text-sm text-gray-400 mb-1">🚌 Plus de services</div>
+                        <div class="text-white font-bold text-lg" id="record-livraisons-nom">-</div>
+                        <div class="text-yellow-400 text-2xl font-black" id="record-livraisons-val">0</div>
+                    </div>
+                    <div class="p-4 bg-gradient-to-r from-blue-900/30 to-blue-800/30 rounded-lg border-l-4 border-blue-400">
+                        <div class="text-sm text-gray-400 mb-1">🌍 Plus de kilomètres</div>
+                        <div class="text-white font-bold text-lg" id="record-kilometres-nom">-</div>
+                        <div class="text-blue-400 text-2xl font-black" id="record-kilometres-val">0</div>
+                    </div>
+                    <div class="p-4 bg-gradient-to-r from-purple-900/30 to-purple-800/30 rounded-lg border-l-4 border-purple-400">
+                        <div class="text-sm text-gray-400 mb-1">⏱️ Plus d'heures</div>
+                        <div class="text-white font-bold text-lg" id="record-heures-nom">-</div>
+                        <div class="text-purple-400 text-2xl font-black" id="record-heures-val">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Badges les Plus Obtenus -->
+        <div class="bg-slate-800 rounded-xl p-6 mb-12 animate-fade-in-up delay-500">
+            <h2 class="text-2xl font-bold text-purple-400 mb-6">🏅 Badges les Plus Obtenus</h2>
+            <div id="badges-stats" class="grid md:grid-cols-5 gap-4">
+                <!-- Badges dynamiques -->
+            </div>
+        </div>
+
+        <!-- Progression dans le Temps -->
+        <div class="bg-slate-800 rounded-xl p-6 animate-fade-in-up delay-600">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-6">📈 Évolution des Services</h2>
+            <canvas id="chart-evolution"></canvas>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8 border-t border-blue-600 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">Nova Entreprise Officiel</p>
+            <p class="text-sm text-gray-500 mt-2">Statistiques mises à jour en temps réel</p>
+            <p class="text-gray-500 text-xs mt-4">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/menu.js"></script>
+    <script>
+        let chauffeurs = [];
+        let chartTopChauffeurs = null;
+        let chartRangs = null;
+        let chartEvolution = null;
+
+        async function loadStatistics() {
+            try {
+                const response = await fetch('/api/chauffeurs-get.php?limit=100');
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    chauffeurs = data.data;
+                    displayGlobalStats();
+                    displayAverages();
+                    displayRecords();
+                    displayTopChauffeurs();
+                    displayRangsDistribution();
+                    displayBadgesStats();
+                    displayEvolution();
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+
+        function displayGlobalStats() {
+            const totalLivraisons = chauffeurs.reduce((sum, c) => sum + (c.livraisons || 0), 0);
+            const totalKilometres = chauffeurs.reduce((sum, c) => sum + (c.kilometres || 0), 0);
+            const totalConvois = chauffeurs.reduce((sum, c) => sum + (c.convois_participes || 0), 0);
+            const chauffeursActifs = chauffeurs.filter(c => c.statut === 'actif').length;
+
+            animateCounter('stat-livraisons', totalLivraisons);
+            animateCounter('stat-kilometres', totalKilometres, ' km');
+            animateCounter('stat-chauffeurs', chauffeursActifs);
+            animateCounter('stat-convois', totalConvois);
+        }
+
+        function displayAverages() {
+            const count = chauffeurs.length || 1;
+            const avgLivraisons = Math.round(chauffeurs.reduce((sum, c) => sum + (c.livraisons || 0), 0) / count);
+            const avgKilometres = Math.round(chauffeurs.reduce((sum, c) => sum + (c.kilometres || 0), 0) / count);
+            const avgHeures = Math.round(chauffeurs.reduce((sum, c) => sum + (c.heures_jeu || 0), 0) / count);
+            const avgConvois = Math.round(chauffeurs.reduce((sum, c) => sum + (c.convois_participes || 0), 0) / count);
+
+            document.getElementById('avg-livraisons').textContent = avgLivraisons.toLocaleString();
+            document.getElementById('avg-kilometres').textContent = avgKilometres.toLocaleString() + ' km';
+            document.getElementById('avg-heures').textContent = avgHeures.toLocaleString() + 'h';
+            document.getElementById('avg-convois').textContent = avgConvois.toLocaleString();
+        }
+
+        function displayRecords() {
+            const maxLivraisons = chauffeurs.reduce((max, c) => (c.livraisons || 0) > (max.livraisons || 0) ? c : max, {});
+            const maxKilometres = chauffeurs.reduce((max, c) => (c.kilometres || 0) > (max.kilometres || 0) ? c : max, {});
+            const maxHeures = chauffeurs.reduce((max, c) => (c.heures_jeu || 0) > (max.heures_jeu || 0) ? c : max, {});
+
+            document.getElementById('record-livraisons-nom').textContent = maxLivraisons.pseudo || '-';
+            document.getElementById('record-livraisons-val').textContent = (maxLivraisons.livraisons || 0).toLocaleString();
+            
+            document.getElementById('record-kilometres-nom').textContent = maxKilometres.pseudo || '-';
+            document.getElementById('record-kilometres-val').textContent = (maxKilometres.kilometres || 0).toLocaleString() + ' km';
+            
+            document.getElementById('record-heures-nom').textContent = maxHeures.pseudo || '-';
+            document.getElementById('record-heures-val').textContent = (maxHeures.heures_jeu || 0).toLocaleString() + 'h';
+        }
+
+        function displayTopChauffeurs() {
+            const top10 = chauffeurs.slice(0, 10);
+            const ctx = document.getElementById('chart-top-chauffeurs');
+
+            if (chartTopChauffeurs) {
+                chartTopChauffeurs.destroy();
+            }
+
+            chartTopChauffeurs = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: top10.map(c => c.pseudo),
+                    datasets: [{
+                        label: 'Services',
+                        data: top10.map(c => c.livraisons || 0),
+                        backgroundColor: 'rgba(251, 191, 36, 0.8)',
+                        borderColor: 'rgba(251, 191, 36, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#fbbf24',
+                            bodyColor: '#fff'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function displayRangsDistribution() {
+            const rangsCount = {};
+            chauffeurs.forEach(c => {
+                const rang = c.rang_nom || 'Apprenti';
+                rangsCount[rang] = (rangsCount[rang] || 0) + 1;
+            });
+
+            const ctx = document.getElementById('chart-rangs');
+
+            if (chartRangs) {
+                chartRangs.destroy();
+            }
+
+            const colors = [
+                'rgba(156, 163, 175, 0.8)',
+                'rgba(59, 130, 246, 0.8)',
+                'rgba(34, 197, 94, 0.8)',
+                'rgba(168, 85, 247, 0.8)',
+                'rgba(251, 191, 36, 0.8)',
+                'rgba(239, 68, 68, 0.8)'
+            ];
+
+            chartRangs = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(rangsCount),
+                    datasets: [{
+                        data: Object.values(rangsCount),
+                        backgroundColor: colors,
+                        borderColor: '#1e293b',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#9ca3af', padding: 15 }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#fbbf24',
+                            bodyColor: '#fff'
+                        }
+                    }
+                }
+            });
+        }
+
+        function displayBadgesStats() {
+            const badgesCount = chauffeurs.reduce((sum, c) => sum + (c.nombre_badges || 0), 0);
+            const avgBadges = Math.round(badgesCount / (chauffeurs.length || 1));
+
+            const container = document.getElementById('badges-stats');
+            container.innerHTML = `
+                <div class="bg-slate-900 rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">🏅</div>
+                    <div class="text-2xl font-bold text-yellow-400">${badgesCount}</div>
+                    <div class="text-gray-400 text-sm">Total Badges</div>
+                </div>
+                <div class="bg-slate-900 rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">📊</div>
+                    <div class="text-2xl font-bold text-blue-400">${avgBadges}</div>
+                    <div class="text-gray-400 text-sm">Moyenne/Conducteur</div>
+                </div>
+                <div class="bg-slate-900 rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">⭐</div>
+                    <div class="text-2xl font-bold text-purple-400">${chauffeurs.filter(c => (c.nombre_badges || 0) >= 5).length}</div>
+                    <div class="text-gray-400 text-sm">5+ Badges</div>
+                </div>
+                <div class="bg-slate-900 rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">👑</div>
+                    <div class="text-2xl font-bold text-red-400">${chauffeurs.filter(c => (c.nombre_badges || 0) >= 8).length}</div>
+                    <div class="text-gray-400 text-sm">8+ Badges</div>
+                </div>
+                <div class="bg-slate-900 rounded-lg p-4 text-center">
+                    <div class="text-3xl mb-2">💎</div>
+                    <div class="text-2xl font-bold text-cyan-400">${chauffeurs.filter(c => (c.nombre_badges || 0) === 10).length}</div>
+                    <div class="text-gray-400 text-sm">Tous les Badges</div>
+                </div>
+            `;
+        }
+
+        function displayEvolution() {
+            // Simuler une évolution (à remplacer par de vraies données historiques)
+            const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août'];
+            const totalLivraisons = chauffeurs.reduce((sum, c) => sum + (c.livraisons || 0), 0);
+            
+            // Simulation de progression
+            const data = months.map((m, i) => Math.round(totalLivraisons * (i + 1) / months.length));
+
+            const ctx = document.getElementById('chart-evolution');
+
+            if (chartEvolution) {
+                chartEvolution.destroy();
+            }
+
+            chartEvolution = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Services Cumulés',
+                        data: data,
+                        borderColor: 'rgba(251, 191, 36, 1)',
+                        backgroundColor: 'rgba(251, 191, 36, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#9ca3af' }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#fbbf24',
+                            bodyColor: '#fff'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function animateCounter(id, target, suffix = '') {
+            const element = document.getElementById(id);
+            const duration = 2000;
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString() + suffix;
+            }, 16);
+        }
+
+        // Charger au démarrage
+        document.addEventListener('DOMContentLoaded', loadStatistics);
+
+        // Recharger toutes les 60 secondes
+        setInterval(loadStatistics, 60000);
+    </script>
+</body>
+
+</html>

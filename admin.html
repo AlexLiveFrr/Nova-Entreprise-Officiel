@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <script src="assets/js/admin-auth.js"></script>
+</head>
+
+<body class="bg-slate-900">
+    <!-- Navigation -->
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-red-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo" class="h-10">
+                <span class="text-white text-xl font-black italic uppercase">ADMIN <span class="text-red-400">PANEL</span></span>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-white hover:text-yellow-400 transition">🏠 Retour au site</a>
+                <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-bold transition">
+                    🚪 Déconnexion
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-12">
+        <div class="text-center mb-10 animate-fade-in-up">
+            <h1 class="text-5xl font-black text-yellow-400 mb-3">🔐 Dashboard OMSI 2</h1>
+            <p class="text-gray-400 text-lg">Vue d'ensemble et accès rapide Nova Entreprise Officiel</p>
+        </div>
+
+        <!-- KPIs -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mb-8">
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center">
+                <p class="text-3xl font-black text-yellow-400" id="kpi-services">0</p>
+                <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Services actifs</p>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center">
+                <p class="text-3xl font-black text-blue-400" id="kpi-conducteurs">0</p>
+                <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Conducteurs actifs</p>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center">
+                <p class="text-3xl font-black text-green-400" id="kpi-participants">0</p>
+                <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Participants total</p>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center">
+                <p class="text-sm font-bold text-purple-400 mt-2" id="kpi-last-sync">Chargement...</p>
+                <p class="text-xs text-gray-400 uppercase tracking-wider mt-2">Derniere synchro</p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <a href="convois.html" class="bg-gradient-to-br from-blue-900 to-blue-800 rounded-xl p-8 hover:scale-105 transition-transform duration-300 shadow-2xl hover:shadow-blue-500/50">
+                <div class="text-6xl mb-4">🚌</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Services OMSI 2</h2>
+                <p class="text-blue-200 text-sm mb-4">Consulter, modifier et gérer les services proposés</p>
+                <span class="text-yellow-400 font-bold">Accéder</span>
+            </a>
+
+            <a href="proposition-convoi.html" class="bg-gradient-to-br from-green-900 to-green-800 rounded-xl p-8 hover:scale-105 transition-transform duration-300 shadow-2xl hover:shadow-green-500/50">
+                <div class="text-6xl mb-4">📝</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Proposer un Service</h2>
+                <p class="text-green-200 text-sm mb-4">Créer un nouveau service OMSI 2 pour la communauté</p>
+                <span class="text-yellow-400 font-bold">Accéder</span>
+            </a>
+
+            <a href="statistiques.html" class="bg-gradient-to-br from-purple-900 to-purple-800 rounded-xl p-8 hover:scale-105 transition-transform duration-300 shadow-2xl hover:shadow-purple-500/50">
+                <div class="text-6xl mb-4">📊</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Statistiques</h2>
+                <p class="text-purple-200 text-sm mb-4">Suivre les performances conducteurs et services</p>
+                <span class="text-yellow-400 font-bold">Accéder</span>
+            </a>
+
+            <a href="equipe.html" class="bg-gradient-to-br from-cyan-900 to-cyan-800 rounded-xl p-8 hover:scale-105 transition-transform duration-300 shadow-2xl hover:shadow-cyan-500/50">
+                <div class="text-6xl mb-4">👥</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Équipe</h2>
+                <p class="text-cyan-200 text-sm mb-4">Voir les profils conducteurs et leur progression</p>
+                <span class="text-yellow-400 font-bold">Accéder</span>
+            </a>
+
+            <a href="partenaires.html" class="bg-gradient-to-br from-orange-900 to-orange-800 rounded-xl p-8 hover:scale-105 transition-transform duration-300 shadow-2xl hover:shadow-orange-500/50">
+                <div class="text-6xl mb-4">🤝</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Partenariats</h2>
+                <p class="text-orange-200 text-sm mb-4">Gérer les demandes de collaboration entreprise</p>
+                <span class="text-yellow-400 font-bold">Accéder</span>
+            </a>
+
+            <a href="diagnostic-truckbook.html" class="bg-gradient-to-br from-red-900 to-red-800 rounded-xl p-8 hover:scale-105 transition-transform duration-300 shadow-2xl hover:shadow-red-500/50">
+                <div class="text-6xl mb-4">🧰</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Diagnostic</h2>
+                <p class="text-red-200 text-sm mb-4">Tester les APIs et vérifier les connexions système</p>
+                <span class="text-yellow-400 font-bold">Accéder</span>
+            </a>
+        </div>
+
+        <div class="max-w-6xl mx-auto mt-10 grid md:grid-cols-2 gap-6">
+            <div class="bg-slate-800 rounded-xl p-6 border border-slate-700">
+                <h3 class="text-xl font-bold text-yellow-400 mb-3">⚡ Accès rapides</h3>
+                <div class="flex flex-wrap gap-3">
+                    <a href="contact.html" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition">Formulaire Recrutement</a>
+                    <a href="formulaire-partenaire.html" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition">Formulaire Partenaire</a>
+                    <a href="podium.html" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition">Podium</a>
+                    <a href="maintenance.html" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition">Page Maintenance</a>
+                </div>
+            </div>
+
+            <div class="bg-slate-800 rounded-xl p-6 border border-slate-700">
+                <h3 class="text-xl font-bold text-yellow-400 mb-3">🛡️ Statut admin</h3>
+                <div class="space-y-2 text-sm">
+                    <p class="text-gray-300">Compte connecté : <span class="text-white font-bold" id="admin-user-label">-</span></p>
+                    <p class="text-gray-300">Environnement : <span class="text-blue-400 font-bold" id="env-label">-</span></p>
+                    <p class="text-gray-300">Session : <span class="text-green-400 font-bold">Active</span></p>
+                    <button onclick="refreshDashboard()" class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold transition">Actualiser les donnees</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Vérifier l'authentification
+        if (sessionStorage.getItem('admin_logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Afficher le nom d'utilisateur
+        const username = sessionStorage.getItem('admin_username');
+        if (username) {
+            document.querySelector('nav span').innerHTML = `ADMIN <span class="text-red-400">PANEL</span> - ${username}`;
+            const userLabel = document.getElementById('admin-user-label');
+            if (userLabel) userLabel.textContent = username;
+        }
+
+        const envLabel = document.getElementById('env-label');
+        if (envLabel) {
+            envLabel.textContent = window.location.hostname.includes('localhost') ? 'Local (WAMP)' : 'Production';
+        }
+
+        async function refreshDashboard() {
+            const lastSync = document.getElementById('kpi-last-sync');
+            try {
+                const [servicesRes, driversRes] = await Promise.all([
+                    fetch('api/api-get-convois.php'),
+                    fetch('api/chauffeurs-get.php?statut=actif&limit=200')
+                ]);
+
+                const servicesData = await servicesRes.json().catch(() => ({}));
+                const driversData = await driversRes.json().catch(() => ({}));
+
+                const services = Array.isArray(servicesData.convois) ? servicesData.convois : [];
+                const drivers = Array.isArray(driversData.data) ? driversData.data : [];
+
+                let participants = 0;
+                services.forEach((s) => {
+                    participants += Number(s.countParticipe || 0) + Number(s.countIncertain || 0);
+                });
+
+                document.getElementById('kpi-services').textContent = services.length.toString();
+                document.getElementById('kpi-conducteurs').textContent = drivers.length.toString();
+                document.getElementById('kpi-participants').textContent = participants.toString();
+                if (lastSync) lastSync.textContent = new Date().toLocaleString('fr-FR');
+            } catch (e) {
+                if (lastSync) lastSync.textContent = 'Erreur chargement';
+            }
+        }
+        window.refreshDashboard = refreshDashboard;
+        refreshDashboard();
+
+        // Fonction de déconnexion
+        function logout() {
+            if (confirm('Voulez-vous vraiment vous déconnecter ?')) {
+                sessionStorage.removeItem('admin_logged_in');
+                sessionStorage.removeItem('admin_username');
+                sessionStorage.removeItem('admin_login_time');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+
+    <footer class="py-6 text-center mt-8">
+        <p class="text-gray-500 text-xs">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+    </footer>
+
+</body>
+
+</html>

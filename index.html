@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.5)),
+                url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Menu déroulant */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu li {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo Nova Entreprise Officiel" class="h-10 md:h-12 w-auto">
+                <span class="text-white text-xl font-black italic uppercase">NOVA ENTREPRISE <span class="text-yellow-400">OFFICIEL</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="flex items-center gap-6 text-white text-xs font-bold uppercase tracking-widest" id="nav-links">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Accueil</a></li>
+                <li><a href="entreprise.html" class="hover:text-yellow-400 transition">Entreprise</a></li>
+                <li><a href="pourquoinouschoisir.html" class="hover:text-yellow-400 transition">Pourquoi nous choisir ?</a></li>
+                <li><a href="equipe.html" class="hover:text-yellow-400 transition">👥 Équipe</a></li>
+                <li><a href="reglement.html" class="hover:text-yellow-400 transition">Règlement</a></li>                
+                <li><a href="partenaires.html" class="hover:text-yellow-400 transition">Partenaires</a></li>
+                <li><a href="contact.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Postuler</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero-gradient min-h-[70vh] flex items-center">
+        <div class="container mx-auto px-6 py-12">
+            <h1 class="text-white font-black italic uppercase leading-tight mb-6 text-4xl md:text-6xl animate-fade-in-up">
+                La ville n'a plus <br><span class="text-yellow-400 text-glow">de frontières</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mb-8 animate-fade-in-up delay-200">
+                Rejoignez Nova Entreprise Officiel, l'élite du transport virtuel sur OMSI 2.
+            </p>
+            <a href="contact.html" class="bg-blue-600 text-white font-bold py-4 px-8 rounded-lg uppercase tracking-widest hover:bg-blue-700 transition inline-block animate-fade-in-up delay-300 hover-lift animate-pulse-glow">Rejoindre la flotte</a>
+        </div>
+    </header>
+
+    <section class="py-16 bg-slate-900 border-t border-blue-600/20">
+        <div class="container mx-auto px-6 flex flex-col items-center">
+            <div class="text-center mb-10 animate-fade-in-up">
+                <h2 class="text-3xl font-black uppercase italic text-white">Suis la ligne <span class="text-yellow-400 text-glow">en direct</span></h2>
+                <p class="text-gray-400 mt-2">Retrouve les sessions OMSI 2 de <strong>alexlivefrr</strong> sur Twitch</p>
+            </div>
+
+            <div class="w-full max-w-4xl aspect-video rounded-3xl overflow-hidden border-4 border-slate-800 shadow-2xl bg-black hover-glow animate-fade-in-up delay-200">
+                <iframe
+                    title="Live Twitch alexlivefrr"
+                    src="https://player.twitch.tv/?channel=alexlivefrr&parent=transport.fr&parent=www.transport.fr&parent=localhost&parent=127.0.0.1"
+                    frameborder="0" allowfullscreen="true" scrolling="no" height="100%" width="100%">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+        <main class="py-16 container mx-auto px-6">
+        <h2
+            class="text-3xl md:text-4xl font-black text-white border-l-8 border-yellow-400 pl-6 inline-block uppercase italic mb-12 animate-fade-in-left">
+            Avantages Nova Entreprise Officiel
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+                class="p-8 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-yellow-400 transition group shadow-md hover-lift hover-shine animate-fade-in-up delay-100">
+                <div class="text-4xl mb-4 animate-bounce">🤝</div>
+                <h3
+                    class="text-2xl font-bold uppercase text-yellow-400 group-hover:scale-105 transition-transform inline-block">
+                    Communauté Active</h3>
+                <p class="text-gray-300 leading-relaxed mt-4">Rejoignez une flotte dynamique où chaque membre contribue
+                    à une expérience de conduite urbaine enrichissante.</p>
+            </div>
+            <div
+                class="p-8 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-yellow-400 transition group shadow-md hover-lift hover-shine animate-fade-in-up delay-200">
+                <div class="text-4xl mb-4 animate-bounce">📅</div>
+                <h3
+                    class="text-2xl font-bold uppercase text-yellow-400 group-hover:scale-105 transition-transform inline-block">
+                    Lignes & Événements</h3>
+                <p class="text-gray-300 leading-relaxed mt-4">Participez à des services organisés, des trajets en groupe
+                    et des événements pour pimenter votre conduite.</p>
+            </div>
+            <div
+                class="p-8 bg-slate-800/50 rounded-xl border border-slate-700 hover:border-yellow-400 transition group shadow-md hover-lift hover-shine animate-fade-in-up delay-300">
+                <div class="text-4xl mb-4 animate-bounce">🎓</div>
+                <h3
+                    class="text-2xl font-bold uppercase text-yellow-400 group-hover:scale-105 transition-transform inline-block">
+                    Formation Urbaine</h3>
+                <p class="text-gray-300 leading-relaxed mt-4">Bénéficiez d'un encadrement professionnel pour améliorer
+                    vos compétences en conduite de bus et en respect des horaires.</p>
+            </div>
+        </div>
+
+        <!-- Section Statistiques avec compteurs animés 
+        <div class="mt-20">
+            <h2 class="text-3xl md:text-4xl font-black text-white text-center uppercase italic mb-12 animate-fade-in-up">
+                <span class="text-gradient"> en Chiffres</span>
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center p-6 bg-slate-800/50 rounded-xl border border-slate-700 hover-lift animate-fade-in-up delay-100">
+                    <div class="counter text-yellow-400" data-counter="43">0</div>
+                    <p class="text-gray-400 font-bold uppercase text-sm mt-2">Membres Actifs</p>
+                </div>
+                <div class="text-center p-6 bg-slate-800/50 rounded-xl border border-slate-700 hover-lift animate-fade-in-up delay-200">
+                    <div class="counter text-blue-400" data-counter="13380">0</div>
+                    <p class="text-gray-400 font-bold uppercase text-sm mt-2">Services</p>
+                </div>
+                <div class="text-center p-6 bg-slate-800/50 rounded-xl border border-slate-700 hover-lift animate-fade-in-up delay-300">
+                    <div class="counter text-purple-400" data-counter="10">0</div>
+                    <p class="text-gray-400 font-bold uppercase text-sm mt-2">Lignes Organisées</p>
+                </div>
+                <div class="text-center p-6 bg-slate-800/50 rounded-xl border border-slate-700 hover-lift animate-fade-in-up delay-400">
+                    <div class="counter text-green-400" data-counter="2.3">0</div>
+                    <p class="text-gray-400 font-bold uppercase text-sm mt-2">Années d'Exploitation</p>
+                </div>
+            </div>
+        </div>-->
+    </main>
+
+    <footer class="py-10 text-center border-t border-blue-600 mt-12">
+        <div class="container mx-auto px-6">
+            <img src="logo.png" alt="Logo" class="h-10 mx-auto mb-4 opacity-50">
+            <p class="text-gray-600 text-sm italic">"L'excellence sur chaque trajet - Nova Entreprise Officiel"</p>
+            <a href="login.html" class="text-gray-700 hover:text-yellow-400 text-xs mt-4 inline-block transition">🔐 Administration</a>
+            <p class="text-gray-500 text-xs mt-4">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+        </div>
+    </footer>
+
+    <!-- Script du menu burger -->
+    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/rewards.js"></script>
+</body>
+
+</html>

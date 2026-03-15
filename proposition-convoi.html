@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposition de Service OMSI 2 | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body class="bg-[#0f172a] text-white">
+
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo Nova Entreprise Officiel" class="h-10 md:h-12 w-auto">
+                <span class="text-white text-xl font-black italic uppercase">NOVA ENTREPRISE <span class="text-yellow-400">OFFICIEL</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="flex items-center gap-6 text-white text-xs font-bold uppercase tracking-widest" id="nav-links">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Accueil</a></li>
+                <li><a href="entreprise.html" class="hover:text-yellow-400 transition">Entreprise</a></li>
+                <li><a href="pourquoinouschoisir.html" class="hover:text-yellow-400 transition">Pourquoi nous choisir ?</a></li>
+                <li><a href="equipe.html" class="hover:text-yellow-400 transition">👥 Équipe</a></li>
+                <li><a href="reglement.html" class="hover:text-yellow-400 transition">Règlement</a></li>                
+                <li><a href="partenaires.html" class="hover:text-yellow-400 transition">Partenaires</a></li>
+                <li><a href="contact.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Postuler</a></li>
+            </ul>
+        </div>
+    </nav>
+    </nav>
+
+    <main class="container mx-auto px-6 py-12 max-w-4xl">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-6xl font-black uppercase italic mb-4">Proposition de <span class="text-yellow-400">Service</span></h1>
+            <p class="text-gray-400 italic font-medium">Organisez un service OMSI 2 avec les membres de Nova Entreprise Officiel</p>
+        </div>
+
+        <form id="convoyForm" class="bg-slate-800/40 p-8 md:p-12 rounded-[2rem] border border-slate-700 shadow-2xl space-y-12 backdrop-blur-md">
+            
+            <!-- Informations du Proposant -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-8 w-1 bg-blue-600"></div>
+                    <h3 class="text-xl font-black uppercase italic">À Propos du Proposant</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="group">
+                        <label class="block text-[10px] font-black uppercase text-yellow-400 mb-2 tracking-widest">Pseudo en jeu</label>
+                        <input type="text" id="pseudo" required placeholder="Ex: MonPseudo" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                    </div>
+                    <div class="group">
+                        <label class="block text-[10px] font-black uppercase text-yellow-400 mb-2 tracking-widest">Discord</label>
+                        <input type="text" id="discord" required placeholder="Ex: MonNom#1234" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lien de la Plateforme -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-8 w-1 bg-blue-600"></div>
+                    <h3 class="text-xl font-black uppercase italic">Liens du Service</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-gray-400 mb-2">Lien OMSI WebDisk / Forum</label>
+                        <input type="url" id="tmp_link" placeholder="https://..." class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-gray-400 mb-2">Lien Steam Workshop / Mod</label>
+                        <input type="url" id="truckbook_link" placeholder="https://..." class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3 italic">Au moins un lien doit être renseigné</p>
+            </section>
+
+            <!-- Détails du Service -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-8 w-1 bg-blue-600"></div>
+                    <h3 class="text-xl font-black uppercase italic">Détails du Service</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="group">
+                        <label for="convoi_date" class="block text-[10px] font-black uppercase text-yellow-400 mb-2 tracking-widest">Date du Service</label>
+                        <input type="date" id="convoi_date" required title="Date du service" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                    </div>
+                    <div class="group">
+                        <label for="convoi_hour" class="block text-[10px] font-black uppercase text-yellow-400 mb-2 tracking-widest">Heure du Service (HH:MM)</label>
+                        <input type="time" id="convoi_hour" required title="Heure du service" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                    </div>
+                </div>
+                <div><br>
+                        <label class="block text-[10px] font-black uppercase text-gray-400 mb-2">Bus / Matériel roulant</label>
+                        <input type="text" id="marchandise_obligatoire" required placeholder="Ex: MAN NL263, Citaro, bus articulé..." class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                    </div>
+                    <div><br>
+                        <label for="serveur" class="block text-[10px] font-black uppercase text-gray-400 mb-2">Type de session</label>
+                        <select id="serveur" name="serveur" required title="Sélectionnez le type de session" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                            <option value="">Sélectionnez une session</option>
+                            <option value="Solo">Solo</option>
+                            <option value="Multijoueur privé">Multijoueur privé</option>
+                            <option value="Multijoueur public">Multijoueur public</option>
+                            <option value="Formation interne">Formation interne</option>
+                            <option value="Event communauté">Event communauté</option>
+                        </select>
+                    </div>
+            </section>
+
+            <!-- Description du Service -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-8 w-1 bg-blue-600"></div>
+                    <h3 class="text-xl font-black uppercase italic">Description & Détails</h3>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-yellow-400 mb-2 tracking-widest">Parcours/Itinéraire</label>
+                    <input type="text" id="parcours" required placeholder="Duisburg (Slots) - Hamburg (CONTAINER PORT or Rest area)" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none mb-6">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-yellow-400 mb-2 tracking-widest">Description du Service</label>
+                    <textarea id="description" required placeholder="Décrivez le service, les règles, les attentes, etc. (Minimum 50 caractères)" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none h-32 resize-none"></textarea>
+                    <p class="text-xs text-gray-500 mt-2">Min. 50 caractères</p>
+                </div>
+            </section>
+
+            <!-- Upload Photos -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="h-8 w-1 bg-blue-600"></div>
+                    <h3 class="text-xl font-black uppercase italic">Photos du Service</h3>
+                </div>
+                <div class="relative">
+                    <label class="block">
+                        <input type="file" id="photos" multiple accept="image/*" class="hidden">
+                        <div class="border-2 border-dashed border-blue-600 rounded-xl p-8 text-center cursor-pointer hover:bg-slate-700/30 transition">
+                            <div class="text-yellow-400 font-black text-2xl mb-2">📸</div>
+                            <p class="font-bold">Cliquez pour ajouter des photos</p>
+                            <p class="text-xs text-gray-400 mt-2">ou glissez-déposez les fichiers ici</p>
+                            <p class="text-xs text-gray-500 mt-3">Formats acceptés : JPG, PNG, WebP (Max. 5MB par photo)</p>
+                        </div>
+                    </label>
+                    <div id="photo-preview" class="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">Maximum 10 photos de 5MB chacune</p>
+            </section>
+
+            <!-- Règlement (sous Photos) -->
+            <section>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-yellow-400 mb-2 tracking-widest">Règlement du service (à renseigner)</label>
+                    <textarea id="rules" placeholder="Décrivez ici les règles spécifiques à ce service (ex: arrêts obligatoires, fréquence, comportements interdits)" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none h-28 resize-none mb-2"></textarea>
+                    <p class="text-xs text-gray-500">Optionnel mais conseillé — sera affiché publiquement avec la proposition.</p>
+                </div>
+            </section>
+
+            <!-- Conditions d'acceptation -->
+            <section>
+                <div class="flex items-start gap-4">
+                    <input type="checkbox" id="accept_rules" required class="mt-1 w-5 h-5 rounded border-2 border-slate-700 bg-white text-blue-600 focus:ring-2 focus:ring-blue-600">
+                    <label for="accept_rules" class="text-sm">
+                        Je certifie que les informations fournies sont exactes et que j'accepte que mon service soit publié et partagé auprès des membres de Nova Entreprise Officiel.<br><br>
+                    </label>
+                </div>
+            </section>
+
+            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all transform hover:scale-105 active:scale-95 text-lg">
+                📤 Proposer le Service
+            </button>
+
+            <p id="form-status" class="text-center text-sm hidden"></p>
+        </form>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // --- GESTION DU FORMULAIRE DE PROPOSITION DE SERVICE ---
+        console.log('🚀 Script de proposition de service chargé');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📄 DOM chargé, initialisation du formulaire...');
+            const convoyForm = document.getElementById('convoyForm');
+            const photoInput = document.getElementById('photos');
+            const photoPreview = document.getElementById('photo-preview');
+            let selectedFiles = [];
+
+            if (!convoyForm) {
+                console.error('❌ Formulaire non trouvé !');
+                alert('❌ Erreur : Formulaire non trouvé. Veuillez recharger la page.');
+                return;
+            }
+            console.log('✅ Formulaire trouvé');
+
+            if (!photoInput) {
+                console.error('❌ Input photos non trouvé !');
+                // On continue quand même, les photos sont optionnelles
+            } else {
+                console.log('✅ Input photos trouvé');
+            }
+
+            // Gestion du drag and drop et sélection de fichiers
+            if (photoInput) {
+                const fileInputLabel = photoInput.parentElement;
+                
+                photoInput.addEventListener('change', handleFileSelect);
+                fileInputLabel.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    fileInputLabel.classList.add('bg-slate-700/50');
+                });
+                fileInputLabel.addEventListener('dragleave', () => {
+                    fileInputLabel.classList.remove('bg-slate-700/50');
+                });
+                fileInputLabel.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    fileInputLabel.classList.remove('bg-slate-700/50');
+                    photoInput.files = e.dataTransfer.files;
+                    handleFileSelect();
+                });
+            }
+
+            function handleFileSelect() {
+                selectedFiles = Array.from(photoInput.files);
+                
+                // Validations
+                if (selectedFiles.length > 10) {
+                    alert('⚠️ Vous pouvez ajouter maximum 10 photos');
+                    selectedFiles = selectedFiles.slice(0, 10);
+                    photoInput.value = '';
+                }
+
+                for (let file of selectedFiles) {
+                    if (file.size > 5242880) { // 5MB
+                        alert('⚠️ ' + file.name + ' dépasse 5MB');
+                        selectedFiles = selectedFiles.filter(f => f !== file);
+                    }
+                }
+
+                updatePhotoPreview();
+            }
+
+            function updatePhotoPreview() {
+                photoPreview.innerHTML = '';
+                selectedFiles.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const div = document.createElement('div');
+                        div.className = 'relative group';
+                        div.innerHTML = `
+                            <img src="${e.target.result}" alt="Preview ${index + 1}" class="w-full h-32 object-cover rounded-lg border border-slate-600">
+                            <button type="button" class="absolute top-1 right-1 bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition text-xs font-bold" onclick="removePhoto(${index})">✕</button>
+                            <p class="text-xs text-gray-400 mt-1 text-center">${file.name}</p>
+                        `;
+                        photoPreview.appendChild(div);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            window.removePhoto = function(index) {
+                selectedFiles.splice(index, 1);
+                updatePhotoPreview();
+            };
+
+            // Validation du formulaire
+            console.log('✅ Gestionnaire de formulaire attaché');
+            
+            // Ajouter aussi un listener sur le bouton directement au cas où
+            const submitBtn = document.getElementById('submit-btn');
+            if (submitBtn) {
+                submitBtn.addEventListener('click', function(e) {
+                    console.log('🖱️ Clic sur le bouton détecté');
+                    // Le submit du formulaire sera déclenché automatiquement
+                });
+            }
+            
+            convoyForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                console.log('📤 Soumission du formulaire détectée');
+                
+                // Désactiver le bouton pour éviter les doubles soumissions
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '⏳ Envoi en cours...';
+                }
+
+                const pseudo = document.getElementById('pseudo').value;
+                const discord = document.getElementById('discord').value;
+                const tmp_link = document.getElementById('tmp_link').value;
+                const truckbook_link = document.getElementById('truckbook_link').value;
+                const convoi_date = document.getElementById('convoi_date').value;
+                const convoi_hour = document.getElementById('convoi_hour').value;
+                const parcours = document.getElementById('parcours').value;
+                const description = document.getElementById('description').value;
+                const rules = document.getElementById('rules') ? document.getElementById('rules').value : '';
+                const serveur = document.getElementById('serveur').value;
+                const acceptRules = document.getElementById('accept_rules').checked;
+
+                // Validations
+                if (!pseudo || !discord) {
+                    alert('❌ Veuillez remplir votre pseudo et Discord');
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Proposer le Service';
+                    }
+                    return;
+                }
+
+                if (!tmp_link && !truckbook_link) {
+                    alert('❌ Veuillez fournir au moins un lien de référence (WebDisk/Forum/Workshop)');
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Proposer le Service';
+                    }
+                    return;
+                }
+
+                if (!convoi_date || !convoi_hour) {
+                    alert('❌ Veuillez remplir la date et l\'heure du service');
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Proposer le Service';
+                    }
+                    return;
+                }
+
+                if (!serveur) {
+                    alert('❌ Veuillez sélectionner un serveur');
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Proposer le Service';
+                    }
+                    return;
+                }
+
+                if (!parcours) {
+                    alert('❌ Veuillez remplir le parcours');
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Proposer le Service';
+                    }
+                    return;
+                }
+
+                if (description.length < 50) {
+                    alert('❌ La description doit contenir au moins 50 caractères');
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Proposer le Service';
+                    }
+                    return;
+                }
+
+                if (!acceptRules) {
+                    alert('❌ Vous devez accepter les conditions');
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Proposer le Service';
+                    }
+                    return;
+                }
+
+                // Envoi vers Discord + sauvegarde locale
+                console.log('📤 Envoi du service...');
+                try {
+                    await sendToDiscord(pseudo, discord, tmp_link, truckbook_link, convoi_date, convoi_hour, parcours, description, rules, serveur);
+                } catch (error) {
+                    console.error('❌ Erreur lors de l\'envoi:', error);
+                    alert('❌ Une erreur est survenue : ' + error.message);
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Proposer le Service';
+                    }
+                }
+            });
+            
+            async function sendToDiscord(pseudo, discord, tmp_link, truckbook_link, convoi_date, convoi_hour, parcours, description, rules, serveur) {
+                console.log('🔄 Début de l\'envoi vers Discord...');
+                
+                // 1. Convertir les photos en Base64 (seulement pour l'affichage, pas pour localStorage)
+                const photosBase64 = [];
+                console.log(`📸 Conversion de ${selectedFiles.length} photo(s)...`);
+                for (let file of selectedFiles) {
+                    const base64 = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+                    photosBase64.push(base64);
+                }
+                console.log('✅ Photos converties en Base64');
+
+                // 2. Créer l'objet service
+                const convoiId = Date.now();
+                const marchandise = document.getElementById('marchandise_obligatoire') ? document.getElementById('marchandise_obligatoire').value : '';
+                const convoiData = {
+                    id: convoiId,
+                    pseudo,
+                    discord,
+                    tmp_link: tmp_link || null,
+                    truckbook_link: truckbook_link || null,
+                    date: convoi_date,
+                    heure: convoi_hour,
+                    parcours,
+                    description,
+                    rules: rules || null,
+                    serveur: serveur || null,
+                    marchandise: marchandise || null
+                };
+
+                // 3. Sauvegarder le service dans la base de données
+                console.log('💾 Sauvegarde du service dans la base de données...');
+                console.log('📤 Données envoyées:', JSON.stringify(convoiData));
+                let dbSaveOk = false;
+                try {
+                    const saveResponse = await fetch('api/api-save-convoi.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(convoiData)
+                    });
+                    
+                    const saveText = await saveResponse.text();
+                    console.log('📥 Réponse brute API save:', saveResponse.status, saveText);
+                    
+                    if (!saveResponse.ok) {
+                        throw new Error('Erreur HTTP ' + saveResponse.status + ': ' + saveText);
+                    }
+                    
+                    const saveResult = JSON.parse(saveText);
+                    if (saveResult.success) {
+                        console.log('✅ Service sauvegardé dans la base de données:', saveResult);
+                        dbSaveOk = true;
+                    } else {
+                        throw new Error(saveResult.error || 'Erreur inconnue');
+                    }
+                } catch (error) {
+                    console.error('❌ Erreur lors de la sauvegarde du service:', error);
+                    alert('⚠️ Erreur de sauvegarde en BDD : ' + error.message + '\nLe service sera quand même envoyé sur Discord.');
+                }
+
+                // 4. Sauvegarder les photos dans la base de données (seulement si le service a été sauvé)
+                if (photosBase64.length > 0 && dbSaveOk) {
+                    console.log('📸 Sauvegarde des photos dans la base de données...');
+                    try {
+                        const photosResponse = await fetch('api/api-upload-photos.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                convoi_id: convoiId,
+                                photos: photosBase64
+                            })
+                        });
+                        
+                        const photosText = await photosResponse.text();
+                        console.log('📥 Réponse brute API photos:', photosResponse.status, photosText);
+                        
+                        if (!photosResponse.ok) {
+                            throw new Error('Erreur HTTP ' + photosResponse.status + ': ' + photosText);
+                        }
+                        
+                        const photosResult = JSON.parse(photosText);
+                        console.log('✅ Photos sauvegardées dans la base de données:', photosResult);
+                    } catch (error) {
+                        console.error('❌ Erreur lors de la sauvegarde des photos:', error);
+                        alert('⚠️ Erreur de sauvegarde des photos : ' + error.message);
+                    }
+                } else if (photosBase64.length > 0 && !dbSaveOk) {
+                    console.warn('⚠️ Photos non sauvegardées car le service n\'a pas été enregistré en BDD');
+                }
+
+                // 5. Envoyer vers Discord
+                const proxyURL = 'api/webhook-proxy.php';
+                const directWebhook = ""; // Remplace par ton URL de Webhook Discord
+
+                const embed = {
+                    // ...existing code...
+                        }, 2000);
+                    } else {
+                        // La sauvegarde locale s'est quand même faite, donc on redirige
+                        document.getElementById('form-status').textContent = '⚠️ Service enregistré localement, mais Discord n\'a pas reçu la notification.';
+                        document.getElementById('form-status').classList.remove('hidden');
+                        document.getElementById('form-status').classList.add('text-yellow-400');
+                        
+                        setTimeout(() => {
+                            window.location.href = `convois.html?newConvoi=${convoiId}`;
+                        }, 2000);
+                    }
+                } catch (error) {
+                    // La sauvegarde locale s'est faite, c'est important
+                    document.getElementById('form-status').textContent = '⚠️ Service enregistré, mais erreur de connexion Discord.';
+                    document.getElementById('form-status').classList.remove('hidden');
+                    document.getElementById('form-status').classList.add('text-yellow-400');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'convois.html';
+                    }, 2000);
+                }
+            }
+            
+            console.log('✅ Initialisation du formulaire terminée');
+        });
+    </script>
+
+    <footer class="py-6 text-center mt-8">
+        <p class="text-gray-500 text-xs">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services OMSI 2 | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body class="bg-[#0f172a] text-white">
+
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo Nova Entreprise Officiel" class="h-10 md:h-12 w-auto">
+                <span class="text-white text-xl font-black italic uppercase">NOVA ENTREPRISE <span class="text-yellow-400">OFFICIEL</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="flex items-center gap-6 text-white text-xs font-bold uppercase tracking-widest" id="nav-links">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Accueil</a></li>
+                <li><a href="entreprise.html" class="hover:text-yellow-400 transition">Entreprise</a></li>
+                <li><a href="pourquoinouschoisir.html" class="hover:text-yellow-400 transition">Pourquoi nous choisir ?</a></li>
+                <li><a href="equipe.html" class="hover:text-yellow-400 transition">👥 Équipe</a></li>
+                <li><a href="reglement.html" class="hover:text-yellow-400 transition">Règlement</a></li>                
+                <li><a href="partenaires.html" class="hover:text-yellow-400 transition">Partenaires</a></li>
+                <li><a href="contact.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Postuler</a></li>
+            </ul>
+        </div>
+    </nav>
+    </nav>
+    
+    <!-- Modal de connexion Admin -->
+    <div id="admin-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 backdrop-blur-sm">
+        <div class="bg-slate-900 rounded-xl p-8 max-w-md w-full mx-4 border-2 border-yellow-400/30">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-black text-yellow-400 uppercase">Connexion Admin</h2>
+                <button onclick="closeAdminModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2" for="admin-username">Identifiant</label>
+                    <input type="text" id="admin-username" placeholder="Entrez votre identifiant" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-yellow-400 transition-all outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2" for="admin-password">Mot de passe</label>
+                    <input type="password" id="admin-password" placeholder="Entrez le mot de passe" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-yellow-400 transition-all outline-none">
+                </div>
+                <button onclick="loginAdmin()" class="w-full bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white font-black uppercase tracking-widest py-3 rounded-xl transition-all">
+                    Se connecter
+                </button>
+                <p id="admin-error" class="text-red-400 text-sm text-center hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de participation -->
+    <div id="participation-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 backdrop-blur-sm">
+        <div class="bg-slate-900 rounded-xl p-8 max-w-md w-full mx-4 border-2 border-green-500/30">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-black text-green-400 uppercase">🎮 Participer au Service</h2>
+                <button onclick="closeParticipationModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <p id="participation-convoi-name" class="text-sm text-gray-400 mb-4"></p>
+            <div class="space-y-4">
+                <!-- Type de participant -->
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Type de participant</label>
+                    <div class="flex gap-3">
+                        <button id="btn-type-joueur" onclick="setParticipationType('joueur')" class="flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-blue-600 text-white border-2 border-blue-500">
+                            🎮 Joueur
+                        </button>
+                        <button id="btn-type-entreprise" onclick="setParticipationType('entreprise')" class="flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-slate-700 text-gray-300 border-2 border-slate-600">
+                            🏢 Entreprise / VTC
+                        </button>
+                    </div>
+                </div>
+                <!-- Champs entreprise (affichés uniquement si type = entreprise) -->
+                <div id="part-entreprise-group" class="hidden space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-2">Nom de l'entreprise / VTC *</label>
+                        <input type="text" id="part-nom-entreprise" placeholder="Nom de votre entreprise ou VTC" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-purple-500 transition-all outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Pseudo en jeu *</label>
+                    <input type="text" id="part-pseudo" placeholder="Votre pseudo en jeu" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-green-500 transition-all outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Discord *</label>
+                    <input type="text" id="part-discord" placeholder="Votre Discord (ex: MonNom#1234)" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-green-500 transition-all outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Statut</label>
+                    <div class="flex gap-3">
+                        <button id="btn-statut-participe" onclick="setParticipationStatut('participe')" class="flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-green-600 text-white border-2 border-green-500">
+                            ✅ Je participe
+                        </button>
+                        <button id="btn-statut-incertain" onclick="setParticipationStatut('incertain')" class="flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-slate-700 text-gray-300 border-2 border-slate-600">
+                            🤔 Incertain
+                        </button>
+                    </div>
+                </div>
+                <button onclick="submitParticipation()" class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-black uppercase tracking-widest py-3 rounded-xl transition-all">
+                    Confirmer
+                </button>
+                <p id="participation-error" class="text-red-400 text-sm text-center hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal d'édition de service (Admin) -->
+    <div id="edit-convoi-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 backdrop-blur-sm">
+        <div class="bg-slate-900 rounded-xl p-8 max-w-2xl w-full mx-4 border-2 border-blue-500/30 overflow-auto" style="max-height: 90vh">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-black text-blue-400 uppercase">✏️ Modifier le Service</h2>
+                <button onclick="closeEditModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <input type="hidden" id="edit-convoi-id">
+            <div class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-pseudo">Pseudo *</label>
+                        <input type="text" id="edit-pseudo" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-discord">Discord *</label>
+                        <input type="text" id="edit-discord" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-parcours">Parcours *</label>
+                    <input type="text" id="edit-parcours" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-date">Date *</label>
+                        <input type="date" id="edit-date" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-heure">Heure *</label>
+                        <input type="time" id="edit-heure" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-serveur">Serveur</label>
+                        <input type="text" id="edit-serveur" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-marchandise">Marchandise</label>
+                        <input type="text" id="edit-marchandise" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-description">Description *</label>
+                    <textarea id="edit-description" rows="3" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none resize-y"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-rules">Règlement</label>
+                    <textarea id="edit-rules" rows="3" class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-500 transition-all outline-none resize-y"></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-tmp-link">Lien TMP</label>
+                        <input type="url" id="edit-tmp-link" placeholder="https://..." class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black text-sm focus:border-blue-500 transition-all outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-300 mb-1" for="edit-truckbook-link">Lien OMSI WebDisk / Forum</label>
+                        <input type="url" id="edit-truckbook-link" placeholder="https://..." class="w-full rounded-xl border-2 border-slate-700 bg-white p-3 text-black text-sm focus:border-blue-500 transition-all outline-none">
+                    </div>
+                </div>
+                <button onclick="submitEditConvoi()" id="edit-submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black uppercase tracking-widest py-3 rounded-xl transition-all">
+                    💾 Sauvegarder les modifications
+                </button>
+                <p id="edit-error" class="text-red-400 text-sm text-center hidden"></p>
+                <p id="edit-success" class="text-green-400 text-sm text-center hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-6 py-12 max-w-6xl">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black uppercase italic mb-4">Services <span class="text-yellow-400">OMSI 2</span></h1>
+            <p class="text-gray-400 italic font-medium">Découvrez les services organisés par les membres de Nova Entreprise Officiel</p>
+            <a href="proposition-convoi.html" class="inline-block mt-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-black uppercase tracking-widest py-3 px-8 rounded-xl transition-all transform hover:scale-105 active:scale-95">
+                ➕ Proposer un Service
+            </a>
+        </div>
+
+        <!-- Filtres -->
+        <div class="mb-8 flex flex-col md:flex-row gap-4">
+            <input type="text" id="search" placeholder="Rechercher par parcours ou proposant..." class="flex-1 rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+            <select id="plateforme-filter" title="Filtrer par plateforme" class="rounded-xl border-2 border-slate-700 bg-white p-3 text-black focus:border-blue-600 transition-all outline-none">
+                <option value="">Toutes les plateformes</option>
+                <option value="tmp">Lien principal</option>
+                <option value="truckbook">Lien secondaire</option>
+            </select>
+        </div>
+
+        <!-- Liste des services -->
+        <div id="convois-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12">
+                <p class="text-gray-400 text-lg">⏳ Aucun service proposé pour le moment...</p>
+                <p class="text-gray-500 text-sm mt-2">Soyez le premier à proposer un service !</p>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-slate-800/40 p-6 rounded-xl border border-slate-700 text-center">
+                <p class="text-3xl font-black text-yellow-400" id="stat-convois">0</p>
+                <p class="text-sm text-gray-400 mt-2">Services Proposés</p>
+            </div>
+            <div class="bg-slate-800/40 p-6 rounded-xl border border-slate-700 text-center">
+                <p class="text-3xl font-black text-green-400" id="stat-participants">0</p>
+                <p class="text-sm text-gray-400 mt-2">Participant(s)</p>
+            </div>
+            <div class="bg-slate-800/40 p-6 rounded-xl border border-slate-700 text-center">
+                <p class="text-3xl font-black text-blue-400" id="stat-plateformes">0</p>
+                <p class="text-sm text-gray-400 mt-2">Plateforme(s)</p>
+            </div>
+            <div class="bg-slate-800/40 p-6 rounded-xl border border-slate-700 text-center">
+                <p class="text-3xl font-black text-purple-400" id="stat-proposants">0</p>
+                <p class="text-sm text-gray-400 mt-2">Proposant(s)</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // Attendre que le DOM soit chargé
+        document.addEventListener('DOMContentLoaded', function() {
+        // --- SYSTÈME D'ADMINISTRATION (authentification serveur) ---
+        function isAdminLoggedIn() {
+            const adminSession = sessionStorage.getItem('admin_logged_in');
+            const adminTimestamp = sessionStorage.getItem('admin_timestamp');
+            const adminToken = sessionStorage.getItem('admin_token');
+            if (adminSession === 'true' && adminTimestamp && adminToken) {
+                const now = Date.now();
+                const timestamp = parseInt(adminTimestamp);
+                if (now - timestamp < 7200000) { // 2 heures
+                    return true;
+                } else {
+                    sessionStorage.removeItem('admin_logged_in');
+                    sessionStorage.removeItem('admin_timestamp');
+                    sessionStorage.removeItem('admin_token');
+                }
+            }
+            return false;
+        }
+        
+        async function loginAdmin() {
+            const username = document.getElementById('admin-username').value.trim();
+            const password = document.getElementById('admin-password').value;
+            const errorMsg = document.getElementById('admin-error');
+            const loginBtn = document.querySelector('#admin-modal button[onclick="loginAdmin()"]');
+            
+            if (!username || !password) {
+                errorMsg.textContent = '❌ Entrez votre identifiant et mot de passe';
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            // Désactiver le bouton pendant la requête
+            if (loginBtn) { loginBtn.disabled = true; loginBtn.textContent = '⏳ Vérification...'; }
+            errorMsg.classList.add('hidden');
+
+            try {
+                const response = await fetch('api/api-admin-login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: username, password: password })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    sessionStorage.setItem('admin_logged_in', 'true');
+                    sessionStorage.setItem('admin_timestamp', Date.now().toString());
+                    sessionStorage.setItem('admin_token', result.token);
+                    sessionStorage.setItem('admin_username', result.username);
+                    closeAdminModal();
+                    updateAdminUI();
+                } else {
+                    errorMsg.textContent = '❌ ' + (result.error || 'Identifiant ou mot de passe incorrect');
+                    errorMsg.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Erreur login:', error);
+                errorMsg.textContent = '❌ Erreur de connexion au serveur';
+                errorMsg.classList.remove('hidden');
+            } finally {
+                if (loginBtn) { loginBtn.disabled = false; loginBtn.textContent = 'Se connecter'; }
+            }
+        }
+        
+        function logoutAdmin() {
+            sessionStorage.removeItem('admin_logged_in');
+            sessionStorage.removeItem('admin_timestamp');
+            sessionStorage.removeItem('admin_token');
+            sessionStorage.removeItem('admin_username');
+            updateAdminUI();
+        }
+        
+        function toggleAdminLogin() {
+            if (isAdminLoggedIn()) {
+                if (confirm('Voulez-vous vous déconnecter du mode admin ?')) {
+                    logoutAdmin();
+                }
+            } else {
+                document.getElementById('admin-modal').classList.remove('hidden');
+                document.getElementById('admin-password').focus();
+            }
+        }
+        
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+            document.getElementById('admin-username').value = '';
+            document.getElementById('admin-password').value = '';
+            document.getElementById('admin-error').classList.add('hidden');
+        }
+        
+        function updateAdminUI() {
+            const adminBtn = document.getElementById('admin-btn');
+            if (isAdminLoggedIn()) {
+                const adminName = sessionStorage.getItem('admin_username') || 'Admin';
+                adminBtn.textContent = '🔓 ' + adminName + ' (Connecté)';
+                adminBtn.classList.remove('text-gray-400');
+                adminBtn.classList.add('text-yellow-400');
+            } else {
+                adminBtn.textContent = '🔐 Admin';
+                adminBtn.classList.remove('text-yellow-400');
+                adminBtn.classList.add('text-gray-400');
+            }
+            // Recharger l'affichage des services pour afficher/masquer les boutons de suppression
+            if (typeof afficherConvois === 'function') {
+                afficherConvois();
+            }
+        }
+        
+        async function deleteConvoi(convoiId) {
+            if (!isAdminLoggedIn()) {
+                alert('❌ Vous devez être connecté en tant qu\'admin pour supprimer un service.');
+                return;
+            }
+            
+            const convoi = convoisData.find(c => c.id === convoiId);
+            if (!convoi) {
+                alert('❌ Service introuvable');
+                return;
+            }
+            
+            if (confirm(`Êtes-vous sûr de vouloir supprimer le service "${convoi.parcours}" proposé par ${convoi.pseudo} ?\n\nCette action est irréversible.`)) {
+                try {
+                    // Supprimer depuis la base de données
+                    const response = await fetch('api/api-delete-convoi.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ convoi_id: convoiId })
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        if (result.success) {
+                            // Supprimer aussi du localStorage si présent
+                            try {
+                                let localConvois = JSON.parse(localStorage.getItem('convois')) || [];
+                                localConvois = localConvois.filter(c => c.id !== convoiId);
+                                localStorage.setItem('convois', JSON.stringify(localConvois));
+                            } catch (e) {
+                                console.warn('Impossible de mettre à jour localStorage:', e);
+                            }
+                            
+                            // Supprimer aussi les photos du sessionStorage si elles existent
+                            try {
+                                sessionStorage.removeItem(`convoi_photos_${convoiId}`);
+                            } catch (e) {
+                                console.warn('Impossible de supprimer les photos du sessionStorage:', e);
+                            }
+                            
+                            console.log(`✅ Service ${convoiId} supprimé de la base de données`);
+                            
+                            // Recharger les services depuis la base de données
+                            await loadConvoisFromDatabase();
+                            
+                            alert('✅ Service supprimé avec succès !');
+                        } else {
+                            throw new Error(result.error || 'Erreur lors de la suppression');
+                        }
+                    } else {
+                        throw new Error('Erreur HTTP lors de la suppression');
+                    }
+                } catch (error) {
+                    console.error('❌ Erreur lors de la suppression:', error);
+                    alert('❌ Erreur lors de la suppression du service. Veuillez réessayer.');
+                }
+            }
+        }
+        
+        // --- SYSTÈME DE PARTICIPATION ---
+        let currentParticipationConvoiId = null;
+        let currentParticipationStatut = 'participe';
+        let currentParticipationType = 'joueur';
+
+        // Charger pseudo/discord sauvegardés
+        function getSavedUserInfo() {
+            return {
+                pseudo: localStorage.getItem('user_pseudo') || '',
+                discord: localStorage.getItem('user_discord') || '',
+                type_participant: localStorage.getItem('user_type_participant') || 'joueur',
+                nom_entreprise: localStorage.getItem('user_nom_entreprise') || '',
+                lien_vtc: localStorage.getItem('user_lien_vtc') || ''
+            };
+        }
+
+        function saveUserInfo(pseudo, discord, typeParticipant, nomEntreprise, lienVtc) {
+            localStorage.setItem('user_pseudo', pseudo);
+            localStorage.setItem('user_discord', discord);
+            localStorage.setItem('user_type_participant', typeParticipant || 'joueur');
+            localStorage.setItem('user_nom_entreprise', nomEntreprise || '');
+            localStorage.setItem('user_lien_vtc', lienVtc || '');
+        }
+
+        function setParticipationType(type) {
+            currentParticipationType = type;
+            const btnJoueur = document.getElementById('btn-type-joueur');
+            const btnEntreprise = document.getElementById('btn-type-entreprise');
+            const entrepriseGroup = document.getElementById('part-entreprise-group');
+
+            if (type === 'joueur') {
+                btnJoueur.className = 'flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-blue-600 text-white border-2 border-blue-500';
+                btnEntreprise.className = 'flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-slate-700 text-gray-300 border-2 border-slate-600';
+                entrepriseGroup.classList.add('hidden');
+            } else {
+                btnJoueur.className = 'flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-slate-700 text-gray-300 border-2 border-slate-600';
+                btnEntreprise.className = 'flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-purple-600 text-white border-2 border-purple-500';
+                entrepriseGroup.classList.remove('hidden');
+                document.getElementById('part-nom-entreprise').focus();
+            }
+        }
+
+        function openParticipationModal(convoiId) {
+            const convoi = convoisData.find(c => c.id === convoiId);
+            if (!convoi) return;
+
+            currentParticipationConvoiId = convoiId;
+            currentParticipationStatut = 'participe';
+            currentParticipationType = 'joueur';
+
+            document.getElementById('participation-convoi-name').textContent = '📍 ' + convoi.parcours;
+            
+            // Pré-remplir avec les infos sauvegardées
+            const saved = getSavedUserInfo();
+            document.getElementById('part-pseudo').value = saved.pseudo;
+            document.getElementById('part-discord').value = saved.discord;
+            document.getElementById('part-nom-entreprise').value = saved.nom_entreprise;
+            document.getElementById('part-lien-vtc').value = saved.lien_vtc;
+            
+            // Reset type et statut buttons
+            setParticipationType(saved.type_participant || 'joueur');
+            setParticipationStatut('participe');
+            
+            document.getElementById('participation-error').classList.add('hidden');
+            document.getElementById('participation-modal').classList.remove('hidden');
+            document.getElementById('part-pseudo').focus();
+        }
+
+        function closeParticipationModal() {
+            document.getElementById('participation-modal').classList.add('hidden');
+            currentParticipationConvoiId = null;
+        }
+
+        function setParticipationStatut(statut) {
+            currentParticipationStatut = statut;
+            const btnParticipe = document.getElementById('btn-statut-participe');
+            const btnIncertain = document.getElementById('btn-statut-incertain');
+            
+            if (statut === 'participe') {
+                btnParticipe.className = 'flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-green-600 text-white border-2 border-green-500';
+                btnIncertain.className = 'flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-slate-700 text-gray-300 border-2 border-slate-600';
+            } else {
+                btnParticipe.className = 'flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-slate-700 text-gray-300 border-2 border-slate-600';
+                btnIncertain.className = 'flex-1 py-3 rounded-xl font-bold text-sm transition-all bg-yellow-600 text-white border-2 border-yellow-500';
+            }
+        }
+
+        async function submitParticipation() {
+            const pseudo = document.getElementById('part-pseudo').value.trim();
+            const discord = document.getElementById('part-discord').value.trim();
+            const nomEntreprise = document.getElementById('part-nom-entreprise').value.trim();
+            const lienVtc = document.getElementById('part-lien-vtc').value.trim();
+            const errorEl = document.getElementById('participation-error');
+
+            if (!pseudo || !discord) {
+                errorEl.textContent = '❌ Pseudo et Discord sont obligatoires';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            if (currentParticipationType === 'entreprise' && !nomEntreprise) {
+                errorEl.textContent = '❌ Le nom de l\'entreprise / VTC est obligatoire';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch('api/api-participer.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        convoi_id: currentParticipationConvoiId,
+                        pseudo: pseudo,
+                        discord: discord,
+                        statut: currentParticipationStatut,
+                        type_participant: currentParticipationType,
+                        nom_entreprise: currentParticipationType === 'entreprise' ? nomEntreprise : null,
+                        lien_vtc: currentParticipationType === 'entreprise' ? lienVtc : null
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    saveUserInfo(pseudo, discord, currentParticipationType, nomEntreprise, lienVtc);
+                    closeParticipationModal();
+                    
+                    // Recharger pour avoir les données à jour
+                    await loadConvoisFromDatabase();
+                    
+                    const typeLabel = currentParticipationType === 'entreprise' ? ` (${nomEntreprise})` : '';
+                    alert(`✅ Participation enregistrée !${typeLabel} Vous ${currentParticipationStatut === 'participe' ? 'participez' : 'êtes incertain(e)'} pour ce service.`);
+                } else {
+                    throw new Error(result.error || 'Erreur inconnue');
+                }
+            } catch (error) {
+                console.error('❌ Erreur participation:', error);
+                errorEl.textContent = '❌ ' + error.message;
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        async function cancelParticipation(convoiId) {
+            const saved = getSavedUserInfo();
+            if (!saved.pseudo) {
+                alert('❌ Impossible de trouver votre pseudo. Vous n\'avez peut-être pas participé.');
+                return;
+            }
+
+            if (!confirm('Voulez-vous retirer votre participation ?')) return;
+
+            try {
+                const response = await fetch('api/api-participer.php', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        convoi_id: convoiId,
+                        pseudo: saved.pseudo
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    await loadConvoisFromDatabase();
+                    alert('✅ Participation retirée !');
+                }
+            } catch (error) {
+                console.error('❌ Erreur annulation:', error);
+                alert('❌ Erreur lors de l\'annulation');
+            }
+        }
+
+        async function showParticipants(convoiId) {
+            const convoi = convoisData.find(c => c.id === convoiId);
+            if (!convoi) return;
+
+            try {
+                const response = await fetch(`api/api-participer.php?convoi_id=${convoiId}`);
+                const result = await response.json();
+
+                if (!result.success) throw new Error(result.error);
+
+                const participations = result.participations || [];
+                const participe = participations.filter(p => p.statut === 'participe');
+                const incertain = participations.filter(p => p.statut === 'incertain');
+
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 backdrop-blur-sm';
+
+                const content = document.createElement('div');
+                content.className = 'max-w-lg w-full bg-slate-900 rounded-xl p-6 relative overflow-auto border-2 border-green-500/30';
+                content.style.maxHeight = '80vh';
+
+                let html = `
+                    <h2 class="text-xl font-black text-green-400 uppercase mb-2">🎮 Participants</h2>
+                    <p class="text-sm text-gray-400 mb-6">📍 ${escapeHtml(convoi.parcours)}</p>
+                `;
+
+                // Séparer joueurs et entreprises
+                const joueurs = participations.filter(p => p.type_participant !== 'entreprise');
+                const entreprises = participations.filter(p => p.type_participant === 'entreprise');
+
+                // Résumé en haut
+                html += `<div class="flex gap-3 mb-4">
+                    <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-lg">🎮 ${joueurs.length} joueur(s)</span>
+                    <span class="bg-purple-500/20 text-purple-400 text-xs font-bold px-3 py-1 rounded-lg">🏢 ${entreprises.length} entreprise(s)</span>
+                    <span class="bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-lg">✅ ${participe.length} confirmé(s)</span>
+                    <span class="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-3 py-1 rounded-lg">🤔 ${incertain.length} incertain(s)</span>
+                </div>`;
+
+                // Section Entreprises/VTC
+                if (entreprises.length > 0) {
+                    html += `<div class="mb-4">
+                        <p class="text-sm font-bold text-purple-400 mb-3">🏢 Entreprises / VTC (${entreprises.length})</p>
+                        <div class="space-y-2">`;
+                    entreprises.forEach(p => {
+                        const statutIcon = p.statut === 'participe' ? '✅' : '🤔';
+                        const statutColor = p.statut === 'participe' ? 'green' : 'yellow';
+                        const lienHtml = p.lien_vtc 
+                            ? `<a href="${escapeHtml(p.lien_vtc)}" target="_blank" class="inline-flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 underline mt-1">🔗 Page VTC ↗</a>` 
+                            : '';
+                        html += `<div class="flex items-center gap-3 bg-purple-900/20 rounded-lg p-3 border border-purple-500/20">
+                            <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold text-sm">🏢</div>
+                            <div class="flex-1">
+                                <p class="text-sm font-bold text-white">${escapeHtml(p.pseudo)}</p>
+                                <p class="text-xs text-purple-300 font-semibold">${escapeHtml(p.nom_entreprise || 'Entreprise')}</p>
+                                <p class="text-xs text-gray-400">${escapeHtml(p.discord)}</p>
+                                ${lienHtml}
+                            </div>
+                            <span class="text-${statutColor}-400 text-sm">${statutIcon}</span>
+                        </div>`;
+                    });
+                    html += `</div></div>`;
+                }
+
+                // Section Joueurs
+                if (joueurs.length > 0) {
+                    html += `<div class="mb-4">
+                        <p class="text-sm font-bold text-blue-400 mb-3">🎮 Joueurs (${joueurs.length})</p>
+                        <div class="space-y-2">`;
+                    joueurs.forEach(p => {
+                        const statutIcon = p.statut === 'participe' ? '✅' : '🤔';
+                        const statutBg = p.statut === 'participe' ? 'green' : 'yellow';
+                        html += `<div class="flex items-center gap-3 bg-${statutBg}-900/20 rounded-lg p-3 border border-${statutBg}-500/20">
+                            <div class="w-8 h-8 rounded-full bg-${statutBg}-500/20 flex items-center justify-center text-${statutBg}-400 font-bold text-sm">${escapeHtml(p.pseudo.charAt(0).toUpperCase())}</div>
+                            <div class="flex-1">
+                                <p class="text-sm font-bold text-white">${escapeHtml(p.pseudo)}</p>
+                                <p class="text-xs text-gray-400">${escapeHtml(p.discord)}</p>
+                            </div>
+                            <span class="text-${statutBg}-400 text-sm">${statutIcon}</span>
+                        </div>`;
+                    });
+                    html += `</div></div>`;
+                }
+
+                if (participations.length === 0) {
+                    html += `<p class="text-gray-500 text-center py-6">Aucun participant pour le moment</p>`;
+                }
+
+                content.innerHTML = html;
+
+                // Bouton fermer
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded font-bold';
+                closeBtn.textContent = '✕';
+                closeBtn.addEventListener('click', () => modal.remove());
+                content.appendChild(closeBtn);
+
+                modal.appendChild(content);
+                modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+                document.body.appendChild(modal);
+
+            } catch (error) {
+                console.error('❌ Erreur chargement participants:', error);
+                alert('❌ Erreur lors du chargement des participants');
+            }
+        }
+
+        // --- SYSTÈME D'ÉDITION DE CONVOI (Admin) ---
+        function openEditConvoi(convoiId) {
+            if (!isAdminLoggedIn()) {
+                alert('❌ Vous devez être connecté en tant qu\'admin.');
+                return;
+            }
+            
+            const convoi = convoisData.find(c => c.id === convoiId);
+            if (!convoi) {
+                alert('❌ Service introuvable');
+                return;
+            }
+            
+            // Pré-remplir le formulaire
+            document.getElementById('edit-convoi-id').value = convoi.id;
+            document.getElementById('edit-pseudo').value = convoi.pseudo || '';
+            document.getElementById('edit-discord').value = convoi.discord || '';
+            document.getElementById('edit-parcours').value = convoi.parcours || '';
+            document.getElementById('edit-date').value = convoi.date || '';
+            document.getElementById('edit-heure').value = convoi.heure || '';
+            document.getElementById('edit-serveur').value = convoi.serveur || '';
+            document.getElementById('edit-marchandise').value = convoi.marchandise || '';
+            document.getElementById('edit-description').value = convoi.description || '';
+            document.getElementById('edit-rules').value = convoi.rules || '';
+            document.getElementById('edit-tmp-link').value = convoi.tmp_link || '';
+            document.getElementById('edit-truckbook-link').value = convoi.truckbook_link || '';
+            
+            // Reset messages
+            document.getElementById('edit-error').classList.add('hidden');
+            document.getElementById('edit-success').classList.add('hidden');
+            
+            // Afficher le modal
+            document.getElementById('edit-convoi-modal').classList.remove('hidden');
+        }
+        
+        function closeEditModal() {
+            document.getElementById('edit-convoi-modal').classList.add('hidden');
+        }
+        
+        async function submitEditConvoi() {
+            const convoiId = document.getElementById('edit-convoi-id').value;
+            const errorEl = document.getElementById('edit-error');
+            const successEl = document.getElementById('edit-success');
+            const submitBtn = document.getElementById('edit-submit-btn');
+            
+            // Validation
+            const pseudo = document.getElementById('edit-pseudo').value.trim();
+            const discord = document.getElementById('edit-discord').value.trim();
+            const parcours = document.getElementById('edit-parcours').value.trim();
+            const date = document.getElementById('edit-date').value;
+            const heure = document.getElementById('edit-heure').value;
+            const description = document.getElementById('edit-description').value.trim();
+            
+            if (!pseudo || !discord || !parcours || !date || !heure || !description) {
+                errorEl.textContent = '❌ Les champs marqués * sont obligatoires';
+                errorEl.classList.remove('hidden');
+                successEl.classList.add('hidden');
+                return;
+            }
+            
+            // Désactiver le bouton
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Sauvegarde en cours...';
+            errorEl.classList.add('hidden');
+            successEl.classList.add('hidden');
+            
+            try {
+                const data = {
+                    id: parseInt(convoiId),
+                    pseudo: pseudo,
+                    discord: discord,
+                    parcours: parcours,
+                    date: date,
+                    heure: heure,
+                    description: description,
+                    rules: document.getElementById('edit-rules').value.trim(),
+                    serveur: document.getElementById('edit-serveur').value.trim(),
+                    marchandise: document.getElementById('edit-marchandise').value.trim(),
+                    tmp_link: document.getElementById('edit-tmp-link').value.trim(),
+                    truckbook_link: document.getElementById('edit-truckbook-link').value.trim()
+                };
+                
+                const response = await fetch('api/api-update-convoi.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    successEl.textContent = '✅ Service modifié avec succès !';
+                    successEl.classList.remove('hidden');
+                    
+                    // Recharger les convois
+                    await loadConvoisFromDatabase();
+                    
+                    // Fermer le modal après 1 seconde
+                    setTimeout(() => {
+                        closeEditModal();
+                    }, 1000);
+                } else {
+                    throw new Error(result.error || 'Erreur inconnue');
+                }
+            } catch (error) {
+                console.error('❌ Erreur modification:', error);
+                errorEl.textContent = '❌ ' + error.message;
+                errorEl.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '💾 Sauvegarder les modifications';
+            }
+        }
+
+        // Exposer les fonctions au scope global pour les onclick HTML
+        window.toggleAdminLogin = toggleAdminLogin;
+        window.closeAdminModal = closeAdminModal;
+        window.loginAdmin = loginAdmin;
+        window.logoutAdmin = logoutAdmin;
+        window.deleteConvoi = deleteConvoi;
+        window.openEditConvoi = openEditConvoi;
+        window.closeEditModal = closeEditModal;
+        window.submitEditConvoi = submitEditConvoi;
+        window.openConvoi = openConvoi;
+        window.viewPhoto = viewPhoto;
+        window.viewPhotoByIndex = viewPhotoByIndex;
+        window.openParticipationModal = openParticipationModal;
+        window.closeParticipationModal = closeParticipationModal;
+        window.setParticipationType = setParticipationType;
+        window.setParticipationStatut = setParticipationStatut;
+        window.submitParticipation = submitParticipation;
+        window.cancelParticipation = cancelParticipation;
+        window.showParticipants = showParticipants;
+
+        // Fermer les modals avec Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAdminModal();
+                closeEditModal();
+            }
+        });
+        
+        // --- AFFICHAGE DES SERVICES PROPOSÉS ---
+        let convoisData = [];
+        
+        // Fonction pour nettoyer les services expirés (30 min après date/heure)
+        async function cleanupExpiredConvois() {
+            try {
+                const response = await fetch('api/api-cleanup-convois.php');
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success && result.deleted_count > 0) {
+                        console.log(`🧹 ${result.deleted_count} service(s) expiré(s) supprimé(s) automatiquement`);
+                    }
+                }
+            } catch (error) {
+                console.warn('⚠️ Erreur lors du nettoyage automatique:', error);
+            }
+        }
+
+        // Fonction pour charger les services depuis la base de données
+        async function loadConvoisFromDatabase() {
+            console.log('🔄 Début du chargement des services depuis la base de données...');
+            // Nettoyer d'abord les services expirés
+            await cleanupExpiredConvois();
+            
+            try {
+                console.log('📡 Appel de l\'API api/api-get-convois.php...');
+                const response = await fetch('api/api-get-convois.php');
+                console.log('📥 Réponse reçue:', response.status, response.statusText);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ Erreur HTTP:', response.status, errorText);
+                    throw new Error(`Erreur HTTP ${response.status}: ${errorText}`);
+                }
+                
+                const result = await response.json();
+                console.log('📦 Données reçues:', result);
+                
+                if (result.success) {
+                    convoisData = result.convois || [];
+                    console.log(`✅ ${convoisData.length} service(s) chargé(s) depuis la base de données`);
+                    
+                    if (convoisData.length === 0) {
+                        console.log('ℹ️ Aucun service dans la base de données');
+                        // Afficher un message si aucun service
+                        const container = document.getElementById('convois-container');
+                        if (container) {
+                            container.innerHTML = `
+                                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12">
+                                    <p class="text-gray-400 text-lg">📭 Aucun service disponible</p>
+                                    <p class="text-gray-500 text-sm mt-2">Soyez le premier à proposer un service !</p>
+                                </div>
+                            `;
+                        }
+                        return;
+                    }
+                    
+                    // Charger les photos pour chaque service
+                    for (let convoi of convoisData) {
+                        if (convoi.photoCount > 0) {
+                            try {
+                                const photosResponse = await fetch(`api/api-get-photos.php?convoi_id=${convoi.id}`);
+                                if (photosResponse.ok) {
+                                    const photosResult = await photosResponse.json();
+                                    if (photosResult.success && photosResult.photos.length > 0) {
+                                        convoi.photos = photosResult.photos;
+                                        console.log(`✅ ${photosResult.photos.length} photo(s) chargée(s) pour le service ${convoi.id}`);
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn(`⚠️ Erreur lors du chargement des photos pour le service ${convoi.id}:`, e);
+                            }
+                        }
+                    }
+                    
+                    // Afficher les services
+                    console.log('🎨 Affichage des services...');
+                    afficherConvois();
+                } else {
+                    throw new Error(result.error || 'Erreur inconnue');
+                }
+            } catch (error) {
+                console.error('❌ Erreur lors du chargement depuis la base de données:', error);
+                console.error('Détails:', error.message, error.stack);
+                // Fallback : charger depuis localStorage si la base de données n'est pas disponible
+                console.log('🔄 Tentative de chargement depuis localStorage...');
+                const localData = localStorage.getItem('convois');
+                convoisData = localData ? JSON.parse(localData) : [];
+                console.log(`📦 ${convoisData.length} convoi(s) chargé(s) depuis localStorage`);
+                afficherConvois();
+            }
+        }
+        
+        // Charger les convois au démarrage
+        loadConvoisFromDatabase();
+
+        // Fonction utilitaire pour échapper le HTML
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Fonction pour formater automatiquement le règlement avec une meilleure lisibilité
+        function formatRules(rulesText) {
+            if (!rulesText) return '';
+            
+            
+            // Détecter les listes numérotées (1., 2., etc.)
+            if (/^\d+\./.test(rulesText.trim()) || /\n\d+\./.test(rulesText)) {
+                const items = rulesText.split(/\n(?=\d+\.)/).filter(item => item.trim());
+                return items.map((item, idx) => {
+                    const trimmed = item.trim();
+                    if (trimmed) {
+                        const content = escapeHtml(trimmed.replace(/^\d+\.\s*/, ''));
+                        return `<div class="flex gap-3 items-start py-2.5 px-1 hover:bg-slate-700/20 rounded transition-colors">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-400/20 text-yellow-400 font-bold text-xs flex items-center justify-center mt-0.5">${idx + 1}</span>
+                            <span class="flex-1 text-gray-200 leading-relaxed">${content}</span>
+                        </div>`;
+                    }
+                    return '';
+                }).join('');
+            }
+            
+            // Détecter les listes à puces (-, *, •)
+            if (/^[-*•]/.test(rulesText.trim()) || /\n[-*•]/.test(rulesText)) {
+                const items = rulesText.split(/\n(?=[-*•])/).filter(item => item.trim());
+                return items.map(item => {
+                    const trimmed = item.trim();
+                    if (trimmed) {
+                        const content = escapeHtml(trimmed.replace(/^[-*•]\s*/, ''));
+                        return `<div class="flex gap-3 items-start py-2.5 px-1 hover:bg-slate-700/20 rounded transition-colors">
+                            <span class="flex-shrink-0 w-2 h-2 rounded-full bg-yellow-400 mt-2.5"></span>
+                            <span class="flex-1 text-gray-200 leading-relaxed">${content}</span>
+                        </div>`;
+                    }
+                    return '';
+                }).join('');
+            }
+            
+            // Détecter les sauts de ligne multiples (paragraphes)
+            if (/\n\n/.test(rulesText) || rulesText.split('\n').length > 2) {
+                const paragraphs = rulesText.split(/\n\n+/).filter(p => p.trim());
+                return paragraphs.map(p => {
+                    const trimmed = p.trim();
+                    // Si le paragraphe contient des sauts de ligne simples, traiter comme une liste
+                    if (trimmed.includes('\n')) {
+                        const lines = trimmed.split('\n').filter(l => l.trim());
+                        return lines.map(line => {
+                            const cleanLine = escapeHtml(line.trim());
+                            if (cleanLine) {
+                                return `<div class="flex gap-3 items-start py-2.5 px-1 hover:bg-slate-700/20 rounded transition-colors">
+                                    <span class="flex-shrink-0 w-2 h-2 rounded-full bg-yellow-400 mt-2.5"></span>
+                                    <span class="flex-1 text-gray-200 leading-relaxed">${cleanLine}</span>
+                                </div>`;
+                            }
+                            return '';
+                        }).join('');
+                    }
+                    return `<div class="py-2.5 px-1 text-gray-200 leading-relaxed">${escapeHtml(trimmed)}</div>`;
+                }).join('');
+            }
+            
+            // Texte simple avec sauts de ligne simples
+            if (rulesText.includes('\n')) {
+                const lines = rulesText.split('\n').filter(l => l.trim());
+                return lines.map(line => {
+                    const trimmed = escapeHtml(line.trim());
+                    if (trimmed) {
+                        return `<div class="flex gap-3 items-start py-2.5 px-1 hover:bg-slate-700/20 rounded transition-colors">
+                            <span class="flex-shrink-0 w-2 h-2 rounded-full bg-yellow-400 mt-2.5"></span>
+                            <span class="flex-1 text-gray-200 leading-relaxed">${trimmed}</span>
+                        </div>`;
+                    }
+                    return '';
+                }).join('');
+            }
+            
+            // Texte simple sans formatage spécial
+            return `<div class="py-2.5 px-1 text-gray-200 leading-relaxed">${escapeHtml(rulesText)}</div>`;
+        }
+
+        function afficherConvois(filtres = {}) {
+            const container = document.getElementById('convois-container');
+            if (!container) {
+                console.error('❌ Élément #convois-container introuvable dans le DOM');
+                return;
+            }
+            console.log('🎨 Affichage de', convoisData.length, 'convoi(s)');
+            let convoisFiltres = convoisData;
+
+            // Filtre par recherche
+            if (filtres.search) {
+                const search = filtres.search.toLowerCase();
+                convoisFiltres = convoisFiltres.filter(convoi => 
+                    convoi.parcours.toLowerCase().includes(search) || 
+                    convoi.pseudo.toLowerCase().includes(search)
+                );
+            }
+
+            // Filtre par plateforme
+            if (filtres.plateforme) {
+                convoisFiltres = convoisFiltres.filter(convoi => {
+                    const tmp = !!convoi.tmp_link;
+                    const truckbook = !!convoi.truckbook_link;
+                    
+                    if (filtres.plateforme === 'tmp') return tmp;
+                    if (filtres.plateforme === 'truckbook') return truckbook;
+                    return true;
+                });
+            }
+
+            // Tri par date (plus récent en premier)
+            convoisFiltres.sort((a, b) => {
+                const dateA = new Date(a.date + ' ' + a.heure);
+                const dateB = new Date(b.date + ' ' + b.heure);
+                return dateB - dateA;
+            });
+
+            // Affichage
+            if (convoisFiltres.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12">
+                        <p class="text-gray-400 text-lg">❌ Aucun service trouvé</p>
+                        <p class="text-gray-500 text-sm mt-2">Essayez d'autres critères de recherche</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = convoisFiltres.map((convoi, index) => `
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-slate-700 shadow-lg hover:shadow-xl transition-all hover:border-blue-600 overflow-hidden group">
+                    <!-- Header -->
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-black uppercase text-yellow-400">${convoi.parcours}</h3>
+                            <p class="text-xs text-gray-400 mt-1">Proposé par <span class="font-bold">${convoi.pseudo}</span></p>
+                        </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openConvoi(${convoi.id})" class="bg-slate-700/40 text-xs text-gray-200 px-3 py-1 rounded hover:bg-slate-700/60 font-bold">Voir</button>
+                                ${isAdminLoggedIn() ? `<button onclick="openEditConvoi(${convoi.id})" class="bg-blue-600/40 text-xs text-blue-300 px-3 py-1 rounded hover:bg-blue-600/60 font-bold" title="Modifier">✏️</button><button onclick="deleteConvoi(${convoi.id})" class="bg-red-600/40 text-xs text-red-300 px-3 py-1 rounded hover:bg-red-600/60 font-bold">🗑️</button>` : ''}
+                                <span class="bg-blue-600/20 text-blue-400 px-2 py-1 rounded text-xs font-bold">SERVICE</span>
+                            </div>
+                    </div>
+
+                    <!-- Date et Heure -->
+                    <div class="flex items-center gap-2 mb-4 text-sm flex-wrap">
+                        <span class="text-yellow-400 font-bold">📅 ${new Date(convoi.date).toLocaleDateString('fr-FR')}</span>
+                        <span class="text-gray-400">•</span>
+                        <span class="text-blue-400 font-bold">⏰ ${convoi.heure}</span>
+                        ${convoi.serveur ? `<span class="text-gray-400">•</span><span class="text-green-400 font-bold">🖥️ ${escapeHtml(convoi.serveur)}</span>` : ''}
+                    </div>
+                    ${convoi.marchandise ? `<div class="mb-4 text-sm"><span class="text-orange-400 font-bold">🚌 Bus / Matériel :</span> <span class="text-gray-300">${escapeHtml(convoi.marchandise)}</span></div>` : ''}
+
+                    <!-- Description -->
+                    ${convoi.description && convoi.description.trim() ? `
+                        <div class="mb-4 bg-gradient-to-br from-blue-900/40 via-blue-800/30 to-slate-800/50 p-4 rounded-xl border-2 border-blue-500/30 shadow-lg backdrop-blur-sm">
+                            <div class="flex items-center gap-2 mb-3 pb-2 border-b border-blue-500/20">
+                                <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                    <span class="text-lg">📝</span>
+                                </div>
+                                <p class="text-xs font-black uppercase tracking-widest text-blue-400">Description</p>
+                            </div>
+                            <p class="text-sm text-gray-200 leading-relaxed line-clamp-3">${escapeHtml(convoi.description)}</p>
+                        </div>
+                    ` : ''}
+                    ${convoi.rules && convoi.rules.length > 0 ? `
+                        <p class="mb-3 text-xs text-yellow-400/70 italic">📜 Règlement disponible — cliquez sur "Voir" pour le consulter</p>
+                    ` : ''}
+
+                    <!-- Plateformes -->
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${convoi.tmp_link ? `<a href="${convoi.tmp_link}" target="_blank" class="inline-flex items-center gap-1 bg-red-600/20 hover:bg-red-600/40 text-red-400 px-3 py-1 rounded-lg text-xs font-bold transition">🔗 Lien 1</a>` : ''}
+                        ${convoi.truckbook_link ? `<a href="${convoi.truckbook_link}" target="_blank" class="inline-flex items-center gap-1 bg-purple-600/20 hover:bg-purple-600/40 text-purple-400 px-3 py-1 rounded-lg text-xs font-bold transition">🔗 Lien 2</a>` : ''}
+                    </div>
+
+                    <!-- Photos -->
+                    ${convoi.photos && convoi.photos.length > 0 ? `
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-400 mb-2">📸 ${convoi.photos.length} photo(s)</p>
+                            <div class="grid grid-cols-3 gap-2">
+                                ${convoi.photos.slice(0, 3).map((photo, pIdx) => `
+                                    <img src="${photo}" alt="Convoi" class="w-full h-16 object-cover rounded cursor-pointer hover:opacity-80 transition" onclick="viewPhotoByIndex(${convoi.id}, ${pIdx})">
+                                `).join('')}
+                                ${convoi.photos.length > 3 ? `<div class="flex items-center justify-center bg-slate-700 rounded text-xs font-bold text-gray-400 cursor-pointer" onclick="openConvoi(${convoi.id})">+${convoi.photos.length - 3}</div>` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <!-- Participation -->
+                    <div class="mb-4 bg-slate-900/50 rounded-xl p-4 border border-slate-600">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <span class="text-green-400 font-bold text-sm cursor-pointer hover:underline" onclick="showParticipants(${convoi.id})">✅ ${convoi.countParticipe || 0}</span>
+                                <span class="text-yellow-400 font-bold text-sm">🤔 ${convoi.countIncertain || 0}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-0.5 rounded">🎮 ${convoi.countJoueurs || 0}</span>
+                                <span class="bg-purple-500/20 text-purple-400 text-xs font-bold px-2 py-0.5 rounded">🏢 ${convoi.countEntreprises || 0}</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openParticipationModal(${convoi.id})" class="flex-1 bg-green-600/20 hover:bg-green-600/40 text-green-400 text-xs font-bold py-2 px-3 rounded-lg transition">
+                                ✅ Participer
+                            </button>
+                            <button onclick="cancelParticipation(${convoi.id})" class="bg-red-600/20 hover:bg-red-600/40 text-red-400 text-xs font-bold py-2 px-3 rounded-lg transition" title="Retirer ma participation">
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Infos supplémentaires -->
+                    <div class="flex items-center gap-2 text-xs text-gray-500 pt-4 border-t border-slate-600 mt-4">
+                        <span class="bg-slate-700 px-2 py-1 rounded">Discord: ${convoi.discord}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Mise à jour des stats
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('stat-convois').textContent = convoisData.length;
+            
+            // Total participants
+            let totalParticipants = 0;
+            convoisData.forEach(convoi => {
+                totalParticipants += (convoi.countParticipe || 0) + (convoi.countIncertain || 0);
+            });
+            document.getElementById('stat-participants').textContent = totalParticipants;
+            
+            const plateformes = new Set();
+            convoisData.forEach(convoi => {
+                if (convoi.tmp_link) plateformes.add('Lien principal');
+                if (convoi.truckbook_link) plateformes.add('Lien secondaire');
+            });
+            document.getElementById('stat-plateformes').textContent = plateformes.size;
+            
+            const proposants = new Set(convoisData.map(c => c.pseudo));
+            document.getElementById('stat-proposants').textContent = proposants.size;
+        }
+
+        function viewPhotoByIndex(convoiId, photoIndex) {
+            const convoi = convoisData.find(c => c.id === convoiId);
+            if (!convoi || !convoi.photos || !convoi.photos[photoIndex]) {
+                alert('❌ Photo introuvable');
+                return;
+            }
+            viewPhoto(convoi.photos[photoIndex]);
+        }
+
+        function viewPhoto(photoUrl) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-[60] backdrop-blur-sm cursor-pointer';
+            modal.style.padding = '2rem';
+            
+            const img = document.createElement('img');
+            img.src = photoUrl;
+            img.alt = 'Photo du convoi';
+            img.className = 'max-w-full max-h-full object-contain rounded-lg shadow-2xl';
+            img.style.cursor = 'default';
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-bold transition z-[61]';
+            closeBtn.textContent = '✕ Fermer';
+            
+            modal.appendChild(img);
+            modal.appendChild(closeBtn);
+            
+            // Fermer en cliquant sur le fond ou le bouton
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal || e.target === closeBtn) {
+                    modal.remove();
+                }
+            });
+            closeBtn.addEventListener('click', function() {
+                modal.remove();
+            });
+            
+            document.body.appendChild(modal);
+        }
+
+        // Ouvre la fiche complète d'un convoi en modal
+        function openConvoi(id) {
+            const convoi = convoisData.find(c => c.id === id);
+            if (!convoi) return alert('Service introuvable');
+
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4';
+
+            // Créer le contenu HTML
+            const content = document.createElement('div');
+            content.className = 'max-w-3xl w-full bg-slate-900 rounded-xl p-6 relative overflow-auto';
+            content.style.maxHeight = '90vh';
+
+            // Bouton fermer
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded font-bold z-10';
+            closeBtn.textContent = '✕';
+            closeBtn.addEventListener('click', () => modal.remove());
+            content.appendChild(closeBtn);
+
+            // Infos principales
+            let infoHtml = `
+                <div class="flex justify-between items-start mb-2">
+                    <h2 class="text-2xl font-black text-yellow-400">${escapeHtml(convoi.parcours)}</h2>
+                    ${isAdminLoggedIn() ? `<div class="flex gap-2 mr-8">
+                        <button id="edit-btn-detail-${id}" class="bg-blue-600/40 text-blue-300 px-3 py-1 rounded hover:bg-blue-600/60 font-bold text-sm">✏️ Modifier</button>
+                        <button id="delete-btn-detail-${id}" class="bg-red-600/40 text-red-300 px-3 py-1 rounded hover:bg-red-600/60 font-bold text-sm">🗑️ Supprimer</button>
+                    </div>` : ''}
+                </div>
+                <p class="text-sm text-gray-300 mb-2">Proposé par <strong>${escapeHtml(convoi.pseudo)}</strong> • ${new Date(convoi.date).toLocaleDateString('fr-FR')} ⏰ ${convoi.heure}${convoi.serveur ? ' • 🖥️ ' + escapeHtml(convoi.serveur) : ''}</p>
+                ${convoi.marchandise ? `<p class="text-sm text-orange-300 mb-4">🚌 Bus / Matériel : <strong>${escapeHtml(convoi.marchandise)}</strong></p>` : '<div class="mb-4"></div>'}
+            `;
+
+            // Description
+            if (convoi.description && convoi.description.trim()) {
+                infoHtml += `
+                    <div class="mb-6 bg-gradient-to-br from-blue-900/50 via-blue-800/40 to-slate-800/60 p-5 rounded-xl border-2 border-blue-500/40 shadow-xl backdrop-blur-sm">
+                        <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 border-blue-500/30">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center shadow-lg">
+                                <span class="text-2xl">📝</span>
+                            </div>
+                            <p class="text-base font-black uppercase tracking-widest text-blue-400">Description du Service</p>
+                        </div>
+                        <div class="text-base text-gray-200 leading-relaxed whitespace-pre-wrap">${escapeHtml(convoi.description)}</div>
+                    </div>
+                `;
+            }
+
+            // Règlement
+            if (convoi.rules && convoi.rules.length > 0) {
+                infoHtml += `
+                    <div class="mb-6 bg-gradient-to-br from-slate-800/70 via-slate-800/60 to-slate-900/70 p-6 rounded-xl border-2 border-yellow-400/40 shadow-2xl backdrop-blur-sm">
+                        <div class="flex items-center gap-4 mb-5 pb-4 border-b-2 border-yellow-400/30">
+                            <div class="w-12 h-12 rounded-xl bg-yellow-400/20 flex items-center justify-center shadow-lg">
+                                <span class="text-3xl">📜</span>
+                            </div>
+                            <p class="text-base font-black uppercase tracking-widest text-yellow-400">Règlement</p>
+                        </div>
+                        <div class="text-base leading-relaxed">${formatRules(convoi.rules)}</div>
+                    </div>
+                `;
+            }
+
+            // Liens
+            infoHtml += `
+                <div class="mb-4">
+                    <p class="text-sm text-gray-300 font-bold mb-2">🔗 Liens</p>
+                    <div class="flex flex-wrap gap-2">
+                        ${convoi.tmp_link ? `<a href="${convoi.tmp_link}" target="_blank" class="px-3 py-1 bg-red-600/20 text-red-400 rounded">Lien principal</a>` : ''}
+                        ${convoi.truckbook_link ? `<a href="${convoi.truckbook_link}" target="_blank" class="px-3 py-1 bg-purple-600/20 text-purple-400 rounded">Lien secondaire</a>` : ''}
+                    </div>
+                </div>
+            `;
+
+            // Participation
+            infoHtml += `
+                <div class="my-6 bg-gradient-to-br from-green-900/30 to-slate-800/50 p-5 rounded-xl border-2 border-green-500/30">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-green-500/20">
+                        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+                            <span class="text-xl">🎮</span>
+                        </div>
+                        <p class="text-sm font-black uppercase tracking-widest text-green-400">Participation</p>
+                        <div class="ml-auto flex items-center gap-2 flex-wrap">
+                            <span class="text-green-400 font-bold text-sm">✅ ${convoi.countParticipe || 0}</span>
+                            <span class="text-yellow-400 font-bold text-sm">🤔 ${convoi.countIncertain || 0}</span>
+                            <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-0.5 rounded">🎮 ${convoi.countJoueurs || 0}</span>
+                            <span class="bg-purple-500/20 text-purple-400 text-xs font-bold px-2 py-0.5 rounded">🏢 ${convoi.countEntreprises || 0}</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-3" id="participation-actions-${convoi.id}">
+                    </div>
+                </div>
+            `;
+
+            // Discord
+            infoHtml += `<div class="mt-4 text-xs text-gray-400">Discord: ${escapeHtml(convoi.discord)}</div>`;
+
+            // Injecter le HTML (sans les photos)
+            const infoDiv = document.createElement('div');
+            infoDiv.innerHTML = infoHtml;
+            content.appendChild(infoDiv);
+
+            // Ajouter les photos avec des vrais event listeners (pas de onclick dans HTML)
+            if (convoi.photos && convoi.photos.length > 0) {
+                const photosSection = document.createElement('div');
+                photosSection.className = 'mb-4';
+                photosSection.innerHTML = `<p class="text-sm text-gray-300 font-bold mb-2">📸 Photos (${convoi.photos.length})</p>`;
+                
+                const photosGrid = document.createElement('div');
+                photosGrid.className = 'grid grid-cols-1 md:grid-cols-2 gap-3';
+                
+                convoi.photos.forEach((photoUrl, idx) => {
+                    const img = document.createElement('img');
+                    img.src = photoUrl;
+                    img.alt = 'Photo ' + (idx + 1);
+                    img.className = 'w-full h-48 object-cover rounded-md cursor-pointer hover:opacity-80 transition';
+                    img.addEventListener('click', () => viewPhoto(photoUrl));
+                    photosGrid.appendChild(img);
+                });
+                
+                photosSection.appendChild(photosGrid);
+                // Insérer avant le Discord info
+                const discordDiv = content.querySelector('.mt-4.text-xs');
+                if (discordDiv) {
+                    discordDiv.parentElement.insertBefore(photosSection, discordDiv);
+                } else {
+                    infoDiv.appendChild(photosSection);
+                }
+            }
+
+            modal.appendChild(content);
+
+            // Ajouter les boutons de participation avec event listeners
+            const partActions = content.querySelector(`#participation-actions-${id}`);
+            if (partActions) {
+                const btnParticiper = document.createElement('button');
+                btnParticiper.className = 'flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-xl transition text-sm';
+                btnParticiper.textContent = '✅ Je participe';
+                btnParticiper.addEventListener('click', () => { modal.remove(); openParticipationModal(id); });
+
+                const btnVoir = document.createElement('button');
+                btnVoir.className = 'flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-4 rounded-xl transition text-sm';
+                btnVoir.textContent = '👥 Voir les participants';
+                btnVoir.addEventListener('click', () => { modal.remove(); showParticipants(id); });
+
+                const btnAnnuler = document.createElement('button');
+                btnAnnuler.className = 'bg-red-600/30 hover:bg-red-600/50 text-red-400 font-bold py-3 px-4 rounded-xl transition text-sm';
+                btnAnnuler.textContent = '✕';
+                btnAnnuler.title = 'Retirer ma participation';
+                btnAnnuler.addEventListener('click', () => { modal.remove(); cancelParticipation(id); });
+
+                partActions.appendChild(btnParticiper);
+                partActions.appendChild(btnVoir);
+                partActions.appendChild(btnAnnuler);
+            }
+
+            // Boutons admin dans la vue détail
+            const editBtnDetail = content.querySelector(`#edit-btn-detail-${id}`);
+            if (editBtnDetail) {
+                editBtnDetail.addEventListener('click', () => { modal.remove(); openEditConvoi(id); });
+            }
+            const deleteBtnDetail = content.querySelector(`#delete-btn-detail-${id}`);
+            if (deleteBtnDetail) {
+                deleteBtnDetail.addEventListener('click', () => { modal.remove(); deleteConvoi(id); });
+            }
+
+            // Fermer en cliquant sur le fond
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) modal.remove();
+            });
+
+            document.body.appendChild(modal);
+        }
+
+        // Filtrage en temps réel
+        document.getElementById('search').addEventListener('input', (e) => {
+            afficherConvois({
+                search: e.target.value,
+                plateforme: document.getElementById('plateforme-filter').value
+            });
+        });
+
+        document.getElementById('plateforme-filter').addEventListener('change', (e) => {
+            afficherConvois({
+                search: document.getElementById('search').value,
+                plateforme: e.target.value
+            });
+        });
+
+        // Affichage initial
+        updateAdminUI();
+        
+        // Nettoyage automatique toutes les 5 minutes
+        setInterval(async () => {
+            await cleanupExpiredConvois();
+            // Recharger les convois après nettoyage
+            await loadConvoisFromDatabase();
+        }, 300000); // 5 minutes = 300000 ms
+
+        // Sync avec localStorage quand ça change d'onglet
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'convois') {
+                convoisData = JSON.parse(e.newValue) || [];
+                afficherConvois();
+            }
+        });
+        }); // Fin du DOMContentLoaded
+    </script>
+
+    <!-- Script du menu burger -->
+    <script src="assets/js/menu.js"></script>
+
+    <footer class="py-6 text-center mt-8">
+        <p class="text-gray-500 text-xs">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+    </footer>
+
+</body>
+</html>

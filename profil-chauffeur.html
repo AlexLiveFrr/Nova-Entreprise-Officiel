@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Conducteur | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+
+<body>
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo Nova Entreprise Officiel" class="h-10 md:h-12 w-auto">
+                <span class="text-white text-xl font-black italic uppercase">NOVA ENTREPRISE <span class="text-yellow-400">OFFICIEL</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="flex items-center gap-6 text-white text-xs font-bold uppercase tracking-widest" id="nav-links">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Accueil</a></li>
+                <li><a href="equipe.html" class="hover:text-yellow-400 transition">Notre Équipe</a></li>
+                <li><a href="contact.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Postuler</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Profil du conducteur -->
+    <section class="py-20 container mx-auto px-6">
+        <div id="loading" class="text-center py-20">
+            <div class="spinner mx-auto"></div>
+            <p class="text-gray-400 mt-4">Chargement du profil...</p>
+        </div>
+
+        <div id="profil-container" class="hidden">
+            <!-- En-tête du profil -->
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-3xl p-8 mb-8 border border-blue-600/30 hover-glow animate-fade-in-up">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <!-- Avatar -->
+                    <div class="relative">
+                        <img id="avatar" src="" alt="Avatar" class="w-32 h-32 rounded-full border-4 border-yellow-400 hover-scale">
+                        <div id="statut-badge" class="absolute bottom-0 right-0 w-8 h-8 bg-green-500 rounded-full border-4 border-slate-900"></div>
+                    </div>
+                    
+                    <!-- Infos principales -->
+                    <div class="flex-1 text-center md:text-left">
+                        <h1 id="pseudo" class="text-4xl md:text-5xl font-black text-gradient mb-2"></h1>
+                        <div class="flex items-center justify-center md:justify-start gap-3 mb-4">
+                            <span id="rang-badge" class="text-2xl"></span>
+                            <span id="rang-nom" class="text-xl font-bold"></span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                            <span id="date-inscription" class="text-sm text-gray-400"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Liens externes -->
+                    <div class="flex flex-col gap-3">
+                        <a id="truckbook-link" href="#" target="_blank" class="hidden bg-purple-600/20 hover:bg-purple-600/40 text-purple-400 px-4 py-2 rounded-lg text-sm font-bold transition hover-lift">
+                            📖 Profil conducteur
+                        </a>
+                        <a id="steam-link" href="#" target="_blank" class="hidden bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 px-4 py-2 rounded-lg text-sm font-bold transition hover-lift">
+                            🎮 Steam
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-slate-800 p-6 rounded-xl text-center hover-lift animate-fade-in-up delay-100">
+                    <div class="text-4xl mb-2">🚌</div>
+                    <div id="stat-livraisons" class="text-3xl font-black text-yellow-400 counter" data-counter="0">0</div>
+                    <p class="text-gray-400 text-sm font-bold uppercase">Services</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl text-center hover-lift animate-fade-in-up delay-200">
+                    <div class="text-4xl mb-2">🌍</div>
+                    <div id="stat-kilometres" class="text-3xl font-black text-blue-400 counter" data-counter="0">0</div>
+                    <p class="text-gray-400 text-sm font-bold uppercase">Kilomètres</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl text-center hover-lift animate-fade-in-up delay-300">
+                    <div class="text-4xl mb-2">🚦</div>
+                    <div id="stat-convois" class="text-3xl font-black text-green-400 counter" data-counter="0">0</div>
+                    <p class="text-gray-400 text-sm font-bold uppercase">Services</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl text-center hover-lift animate-fade-in-up delay-400">
+                    <div class="text-4xl mb-2">⏱️</div>
+                    <div id="stat-heures" class="text-3xl font-black text-purple-400 counter" data-counter="0">0</div>
+                    <p class="text-gray-400 text-sm font-bold uppercase">Heures</p>
+                </div>
+            </div>
+
+            <!-- Badges obtenus -->
+            <div class="bg-slate-800 p-8 rounded-xl mb-8 animate-fade-in-up delay-500">
+                <h2 class="text-3xl font-black text-yellow-400 mb-6 uppercase italic">🏅 Badges Obtenus</h2>
+                <div id="badges-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <!-- Les badges seront générés ici -->
+                </div>
+            </div>
+
+            <!-- Progression vers le prochain rang -->
+            <div id="progression-container" class="bg-slate-800 p-8 rounded-xl mb-8 animate-fade-in-up delay-600">
+                <h2 class="text-3xl font-black text-yellow-400 mb-6 uppercase italic">🎯 Prochain Objectif</h2>
+                <div class="flex items-center gap-4">
+                    <div class="text-5xl" id="prochain-rang-icone">🏆</div>
+                    <div class="flex-1">
+                        <h3 id="prochain-rang-nom" class="text-2xl font-bold text-white mb-2"></h3>
+                        <div class="bg-slate-900 rounded-full h-4 overflow-hidden">
+                            <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                        <p id="progress-text" class="text-sm text-gray-400 mt-2"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques détaillées -->
+            <div class="grid md:grid-cols-2 gap-8 animate-fade-in-up delay-700">
+                <div class="bg-slate-800 p-8 rounded-xl">
+                    <h3 class="text-2xl font-bold text-yellow-400 mb-4 uppercase italic">📊 Détails</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Services de nuit</span>
+                            <span id="stat-nuit" class="text-white font-bold">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Accidents</span>
+                            <span id="stat-accidents" class="text-white font-bold">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Dernier service</span>
+                            <span id="stat-derniere" class="text-white font-bold">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Badges obtenus</span>
+                            <span id="stat-badges-count" class="text-white font-bold">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 p-8 rounded-xl">
+                    <h3 class="text-2xl font-bold text-yellow-400 mb-4 uppercase italic">🎖️ Rang Actuel</h3>
+                    <div class="text-center">
+                        <div class="text-6xl mb-4" id="rang-icone-large">🔰</div>
+                        <h4 id="rang-nom-large" class="text-3xl font-black text-white mb-2">Apprenti</h4>
+                        <p class="text-gray-400">Niveau <span id="rang-niveau">1</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message d'erreur -->
+        <div id="error-container" class="hidden text-center py-20">
+            <div class="text-6xl mb-4">❌</div>
+            <h2 class="text-3xl font-bold text-white mb-4">Conducteur non trouvé</h2>
+            <p class="text-gray-400 mb-8">Ce profil n'existe pas ou a été supprimé.</p>
+            <a href="equipe.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                Voir l'équipe
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-blue-600 mt-12">
+        <div class="container mx-auto px-6">
+            <img src="logo.png" alt="Logo" class="h-10 mx-auto mb-4 opacity-50">
+            <p class="text-gray-600 text-sm italic">"L'excellence sur chaque trajet - Nova Entreprise Officiel"</p>
+            <p class="text-gray-500 text-xs mt-4">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/rewards.js"></script>
+    <script>
+        // Récupérer l'ID du chauffeur depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const chauffeurId = urlParams.get('id');
+
+        if (!chauffeurId) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('error-container').classList.remove('hidden');
+        } else {
+            loadChauffeur(chauffeurId);
+        }
+
+        async function loadChauffeur(id) {
+            try {
+                const response = await fetch(`api/chauffeurs-get.php?id=${id}`);
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    displayChauffeur(data.data);
+                } else {
+                    throw new Error('Conducteur non trouvé');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('error-container').classList.remove('hidden');
+            }
+        }
+
+        function displayChauffeur(chauffeur) {
+            // Masquer le loading
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('profil-container').classList.remove('hidden');
+
+            // Infos principales
+            document.getElementById('pseudo').textContent = chauffeur.pseudo;
+            document.getElementById('rang-badge').textContent = chauffeur.rang_icone || '🔰';
+            document.getElementById('rang-nom').textContent = chauffeur.rang_nom || 'Apprenti';
+            
+            // Avatar
+            if (chauffeur.avatar_url) {
+                document.getElementById('avatar').src = chauffeur.avatar_url;
+            } else {
+                document.getElementById('avatar').src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(chauffeur.pseudo) + '&size=128&background=2563eb&color=fff';
+            }
+
+            // Date d'inscription
+            const dateInscription = new Date(chauffeur.date_inscription);
+            document.getElementById('date-inscription').textContent = 
+                '📅 Membre depuis ' + dateInscription.toLocaleDateString('fr-FR');
+
+            // Liens externes
+            if (chauffeur.truckbook_url) {
+                const link = document.getElementById('truckbook-link');
+                link.href = chauffeur.truckbook_url;
+                link.classList.remove('hidden');
+            }
+
+            if (chauffeur.steam_id) {
+                const link = document.getElementById('steam-link');
+                link.href = `https://steamcommunity.com/profiles/${chauffeur.steam_id}`;
+                link.classList.remove('hidden');
+            }
+
+            // Statistiques
+            document.getElementById('stat-livraisons').setAttribute('data-counter', chauffeur.livraisons || 0);
+            document.getElementById('stat-kilometres').setAttribute('data-counter', chauffeur.kilometres || 0);
+            document.getElementById('stat-convois').setAttribute('data-counter', chauffeur.convois_participes || 0);
+            document.getElementById('stat-heures').setAttribute('data-counter', chauffeur.heures_jeu || 0);
+
+            // Détails
+            document.getElementById('stat-nuit').textContent = chauffeur.livraisons_nuit || 0;
+            document.getElementById('stat-accidents').textContent = chauffeur.accidents || 0;
+            document.getElementById('stat-derniere').textContent = 
+                chauffeur.derniere_livraison ? new Date(chauffeur.derniere_livraison).toLocaleDateString('fr-FR') : '-';
+            document.getElementById('stat-badges-count').textContent = chauffeur.badges ? chauffeur.badges.length : 0;
+
+            // Rang actuel
+            document.getElementById('rang-icone-large').textContent = chauffeur.rang_icone || '🔰';
+            document.getElementById('rang-nom-large').textContent = chauffeur.rang_nom || 'Apprenti';
+            document.getElementById('rang-niveau').textContent = chauffeur.rang_niveau || 1;
+
+            // Badges
+            displayBadges(chauffeur.badges || []);
+
+            // Progression
+            if (chauffeur.prochain_rang) {
+                displayProgression(chauffeur.livraisons, chauffeur.prochain_rang);
+            } else {
+                document.getElementById('progression-container').innerHTML = `
+                    <h2 class="text-3xl font-black text-yellow-400 mb-6 uppercase italic">👑 Rang Maximum Atteint !</h2>
+                    <p class="text-center text-xl text-gray-300">Vous êtes une Légende  !</p>
+                `;
+            }
+
+            // Initialiser les compteurs
+            window.Rewards.initCounters();
+        }
+
+        function displayBadges(badges) {
+            const container = document.getElementById('badges-container');
+            
+            if (badges.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 col-span-full text-center">Aucun badge obtenu pour le moment</p>';
+                return;
+            }
+
+            container.innerHTML = badges.map(badge => `
+                <div class="text-center hover-scale">
+                    <div class="reward-badge mx-auto mb-3 bg-gradient-to-br ${badge.couleur}">
+                        <span class="reward-badge-icon">${badge.icone}</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-white">${badge.nom}</h4>
+                    <p class="text-xs text-gray-400">${new Date(badge.date_obtention).toLocaleDateString('fr-FR')}</p>
+                </div>
+            `).join('');
+        }
+
+        function displayProgression(livraisons, prochainRang) {
+            document.getElementById('prochain-rang-icone').textContent = prochainRang.icone;
+            document.getElementById('prochain-rang-nom').textContent = prochainRang.nom;
+            
+            const pourcentage = (livraisons / prochainRang.livraisons_requises) * 100;
+            const restant = prochainRang.livraisons_requises - livraisons;
+            
+            document.getElementById('progress-bar').style.width = pourcentage + '%';
+            document.getElementById('progress-text').textContent = 
+                `${livraisons} / ${prochainRang.livraisons_requises} services (encore ${restant} pour débloquer)`;
+        }
+    </script>
+</body>
+
+</html>

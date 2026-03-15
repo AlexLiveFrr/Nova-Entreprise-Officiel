@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic Système OMSI 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-black text-yellow-400 mb-8">🔍 Diagnostic Système OMSI 2</h1>
+        
+        <button onclick="runDiagnostic()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold mb-8">
+            🔄 Lancer le diagnostic
+        </button>
+
+        <div id="results" class="space-y-6"></div>
+    </div>
+
+    <script>
+        async function runDiagnostic() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p class="text-gray-400">Diagnostic en cours...</p>';
+
+            const tests = [];
+
+            // Test 1 : Connexion à la base de données
+            tests.push(testConnection());
+
+            // Test 2 : API Get Conducteurs
+            tests.push(testGetAPI());
+
+            // Test 3 : API Add Conducteur
+            tests.push(testAddAPI());
+
+            const results = await Promise.all(tests);
+            displayResults(results);
+        }
+
+        async function testConnection() {
+            try {
+                const response = await fetch('api/test-connection.php');
+                const data = await response.json();
+                
+                return {
+                    name: '🔌 Connexion Base de Données',
+                    success: data.success,
+                    message: data.success ? 'Connexion réussie' : data.message,
+                    details: data
+                };
+            } catch (error) {
+                return {
+                    name: '🔌 Connexion Base de Données',
+                    success: false,
+                    message: 'Erreur : ' + error.message,
+                    details: null
+                };
+            }
+        }
+
+        async function testGetAPI() {
+            try {
+                const response = await fetch('api/chauffeurs-get.php');
+                const data = await response.json();
+                
+                return {
+                    name: '📥 API Get Conducteurs',
+                    success: data.success,
+                    message: data.success ? `${data.data ? data.data.length : 0} conducteurs trouvés` : data.message,
+                    details: data
+                };
+            } catch (error) {
+                return {
+                    name: '📥 API Get Conducteurs',
+                    success: false,
+                    message: 'Erreur : ' + error.message,
+                    details: null
+                };
+            }
+        }
+
+        async function testAddAPI() {
+            try {
+                const testData = {
+                    pseudo: 'TestDiagnostic_' + Date.now(),
+                    discord_id: 'test#1234',
+                    role: 'conducteur'
+                };
+
+                const response = await fetch('api/chauffeurs-add.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testData)
+                });
+                
+                const data = await response.json();
+                
+                return {
+                    name: '➕ API Add Conducteur',
+                    success: data.success,
+                    message: data.success ? 'Test d\'ajout réussi' : data.message,
+                    details: data
+                };
+            } catch (error) {
+                return {
+                    name: '➕ API Add Conducteur',
+                    success: false,
+                    message: 'Erreur : ' + error.message,
+                    details: null
+                };
+            }
+        }
+
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('results');
+            
+            resultsDiv.innerHTML = results.map(result => {
+                const bgColor = result.success ? 'bg-green-900/30 border-green-600' : 'bg-red-900/30 border-red-600';
+                const icon = result.success ? '✅' : '❌';
+                
+                return `
+                    <div class="${bgColor} border-2 rounded-xl p-6">
+                        <h3 class="text-2xl font-bold mb-2">${icon} ${result.name}</h3>
+                        <p class="text-lg mb-4">${result.message}</p>
+                        ${result.details ? `
+                            <details class="mt-4">
+                                <summary class="cursor-pointer text-yellow-400 font-bold">Voir les détails</summary>
+                                <pre class="mt-2 bg-slate-950 p-4 rounded text-xs overflow-auto">${JSON.stringify(result.details, null, 2)}</pre>
+                            </details>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            // Résumé
+            const allSuccess = results.every(r => r.success);
+            const summary = document.createElement('div');
+            summary.className = `mt-8 p-6 rounded-xl text-center text-2xl font-bold ${allSuccess ? 'bg-green-900/30 border-2 border-green-600' : 'bg-orange-900/30 border-2 border-orange-600'}`;
+            summary.innerHTML = allSuccess 
+                ? '🎉 Tous les tests sont passés ! Le système fonctionne correctement.'
+                : '⚠️ Certains tests ont échoué. Vérifiez les détails ci-dessus.';
+            resultsDiv.appendChild(summary);
+
+            // Instructions
+            if (!allSuccess) {
+                const instructions = document.createElement('div');
+                instructions.className = 'mt-6 bg-blue-900/30 border-2 border-blue-600 rounded-xl p-6';
+                instructions.innerHTML = `
+                    <h3 class="text-xl font-bold text-yellow-400 mb-4">📋 Actions à faire :</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                        <li>Vérifier que WAMP/MySQL est démarré</li>
+                        <li>Vérifier que la base de données existe</li>
+                        <li>Importer le fichier de structure SQL du projet</li>
+                        <li>Vérifier <code class="bg-slate-950 px-2 py-1 rounded">config.php</code></li>
+                        <li>Relancer ce diagnostic</li>
+                    </ol>
+                `;
+                resultsDiv.appendChild(instructions);
+            } else {
+                const success = document.createElement('div');
+                success.className = 'mt-6 bg-green-900/30 border-2 border-green-600 rounded-xl p-6';
+                success.innerHTML = `
+                    <h3 class="text-xl font-bold text-yellow-400 mb-4">✅ Prochaines étapes :</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                        <li>Ouvrir <a href="admin-chauffeurs.html" class="text-blue-400 underline">admin-chauffeurs.html</a></li>
+                        <li>Ajouter vos vrais conducteurs</li>
+                        <li>Mettre à jour leurs stats</li>
+                        <li>Voir le résultat sur <a href="equipe.html" class="text-blue-400 underline">equipe.html</a></li>
+                    </ol>
+                `;
+                resultsDiv.appendChild(success);
+            }
+        }
+
+        // Lancer automatiquement au chargement
+        document.addEventListener('DOMContentLoaded', runDiagnostic);
+    </script>
+
+    <footer class="py-6 text-center mt-8">
+        <p class="text-gray-500 text-xs">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+    </footer>
+
+</body>
+</html>

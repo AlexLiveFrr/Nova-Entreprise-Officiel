@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notre Équipe | Nova Entreprise Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/menu-dropdown.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+
+<body>
+    <nav class="bg-slate-900 p-4 sticky top-0 z-50 shadow-xl border-b border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="logo.png" alt="Logo Nova Entreprise Officiel" class="h-10 md:h-12 w-auto">
+                <span class="text-white text-xl font-black italic uppercase">NOVA ENTREPRISE <span class="text-yellow-400">OFFICIEL</span></span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="flex items-center gap-6 text-white text-xs font-bold uppercase tracking-widest" id="nav-links">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Accueil</a></li>
+                <li><a href="entreprise.html" class="hover:text-yellow-400 transition">Entreprise</a></li>
+                <li><a href="pourquoinouschoisir.html" class="hover:text-yellow-400 transition">Pourquoi nous choisir ?</a></li>
+                <li><a href="equipe.html" class="hover:text-yellow-400 transition">👥 Équipe</a></li>
+                <li><a href="reglement.html" class="hover:text-yellow-400 transition">Règlement</a></li>                
+                <li><a href="partenaires.html" class="hover:text-yellow-400 transition">Partenaires</a></li>
+                <li><a href="contact.html" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Postuler</a></li>
+            </ul>
+        </div>
+    </nav>
+    </nav>
+
+    <!-- Hero -->
+    <header class="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-7xl font-black uppercase italic mb-6 animate-fade-in-up">
+                <span class="text-gradient text-glow">Notre Équipe</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto animate-fade-in-up delay-200">
+                Découvrez les conducteurs d'élite de Nova Entreprise Officiel
+            </p>
+        </div>
+    </header>
+
+    <!-- Statistiques globales -->
+    <section class="py-16 bg-slate-900 border-t border-blue-600/20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-slate-800 p-6 rounded-xl text-center hover-lift animate-fade-in-up delay-100">
+                    <div class="text-4xl mb-2">👥</div>
+                    <div id="total-chauffeurs" class="text-3xl font-black text-yellow-400 counter" data-counter="0">0</div>
+                    <p class="text-gray-400 text-sm font-bold uppercase">Conducteurs</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl text-center hover-lift animate-fade-in-up delay-200">
+                    <div class="text-4xl mb-2">🚌</div>
+                    <div id="total-livraisons" class="text-3xl font-black text-blue-400 counter" data-counter="0">0</div>
+                    <p class="text-gray-400 text-sm font-bold uppercase">Services</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl text-center hover-lift animate-fade-in-up delay-300">
+                    <div class="text-4xl mb-2">🌍</div>
+                    <div id="total-kilometres" class="text-3xl font-black text-green-400 counter" data-counter="0">0</div>
+                    <p class="text-gray-400 text-sm font-bold uppercase">Kilomètres</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl text-center hover-lift animate-fade-in-up delay-400">
+                    <div class="text-4xl mb-2">🚦</div>
+                    <div id="total-convois" class="text-3xl font-black text-purple-400 counter" data-counter="0">0</div>
+                    <p class="text-gray-400 text-sm font-bold uppercase">Services</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classement des conducteurs -->
+    <section class="py-20 container mx-auto px-6">
+        <div class="text-center mb-12 animate-fade-in-up">
+            <h2 class="text-4xl font-black uppercase italic text-white mb-4">
+                🏆 <span class="text-gradient">Classement</span>
+            </h2>
+            <p class="text-gray-400">Les meilleurs conducteurs de la flotte</p>
+        </div>
+
+        <!-- Filtres -->
+        <div class="flex justify-center gap-4 mb-8 animate-fade-in-up delay-200">
+            <button onclick="filterBy('livraisons')" id="filter-livraisons" class="filter-btn active bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-bold transition">
+                🚌 Services
+            </button>
+            <button onclick="filterBy('kilometres')" id="filter-kilometres" class="filter-btn bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-bold transition">
+                🌍 Kilomètres
+            </button>
+            <button onclick="filterBy('convois')" id="filter-convois" class="filter-btn bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-bold transition">
+                🚦 Convois
+            </button>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="text-center py-20">
+            <div class="spinner mx-auto"></div>
+            <p class="text-gray-400 mt-4">Chargement de l'équipe...</p>
+        </div>
+
+        <!-- Liste des conducteurs -->
+        <div id="chauffeurs-container" class="hidden space-y-4">
+            <!-- Les chauffeurs seront générés ici -->
+        </div>
+
+        <!-- Message si vide -->
+        <div id="empty-message" class="hidden text-center py-20">
+            <div class="text-6xl mb-4">🚛</div>
+            <p class="text-gray-400 text-lg">Aucun conducteur pour le moment</p>
+        </div>
+    </section>
+
+    <!-- Podium Top 3 -->
+    <section class="py-20 bg-slate-900 border-t border-blue-600/20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-black uppercase italic text-center text-white mb-12 animate-fade-in-up">
+                🥇 <span class="text-gradient">Podium du Mois</span>
+            </h2>
+            <div id="podium-container" class="grid md:grid-cols-3 gap-8">
+                <!-- Le podium sera généré ici -->
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-blue-600 mt-12">
+        <div class="container mx-auto px-6">
+            <img src="logo.png" alt="Logo" class="h-10 mx-auto mb-4 opacity-50">
+            <p class="text-gray-600 text-sm italic">"L'excellence sur chaque trajet - Nova Entreprise Officiel"</p>
+            <p class="text-gray-500 text-xs mt-4">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/rewards.js"></script>
+    <script>
+        let chauffeurs = [];
+        let currentFilter = 'livraisons';
+
+        // Charger les chauffeurs au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChauffeurs();
+        });
+
+        async function loadChauffeurs() {
+            try {
+                const response = await fetch('api/chauffeurs-get.php?statut=actif&limit=100');
+                const data = await response.json();
+
+                if (data.success && data.data) {
+                    chauffeurs = data.data;
+                    displayChauffeurs();
+                    displayStats();
+                    displayPodium();
+                } else {
+                    showEmptyMessage();
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                showEmptyMessage();
+            }
+        }
+
+        function displayChauffeurs() {
+            document.getElementById('loading').classList.add('hidden');
+            
+            if (chauffeurs.length === 0) {
+                showEmptyMessage();
+                return;
+            }
+
+            document.getElementById('chauffeurs-container').classList.remove('hidden');
+            
+            // Trier selon le filtre actuel
+            const sorted = [...chauffeurs].sort((a, b) => {
+                return (b[currentFilter] || 0) - (a[currentFilter] || 0);
+            });
+
+            const container = document.getElementById('chauffeurs-container');
+            container.innerHTML = sorted.map((chauffeur, index) => {
+                const position = index + 1;
+                const medal = position === 1 ? '🥇' : position === 2 ? '🥈' : position === 3 ? '🥉' : `#${position}`;
+                const avatar = chauffeur.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(chauffeur.pseudo)}&size=80&background=2563eb&color=fff`;
+                
+                return `
+                    <div class="bg-slate-800 p-6 rounded-xl border-l-4 border-blue-600 hover-lift hover-glow animate-fade-in-up" style="animation-delay: ${index * 0.05}s">
+                        <div class="flex items-center gap-6">
+                            <!-- Position -->
+                            <div class="text-3xl font-black ${position <= 3 ? 'text-yellow-400' : 'text-gray-500'} w-16 text-center">
+                                ${medal}
+                            </div>
+                            
+                            <!-- Avatar -->
+                            <img src="${avatar}" alt="${chauffeur.pseudo}" class="w-16 h-16 rounded-full border-2 border-yellow-400">
+                            
+                            <!-- Infos -->
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <h3 class="text-xl font-bold text-white">${chauffeur.pseudo}</h3>
+                                    <span class="text-2xl">${chauffeur.rang_icone || '🔰'}</span>
+                                    <span class="text-sm text-gray-400">${chauffeur.rang_nom || 'Apprenti'}</span>
+                                </div>
+                                <div class="flex flex-wrap gap-4 text-sm">
+                                    <span class="text-yellow-400">🚌 ${chauffeur.livraisons || 0} services</span>
+                                    <span class="text-blue-400">🌍 ${(chauffeur.kilometres || 0).toLocaleString()} km</span>
+                                    <span class="text-green-400">🚦 ${chauffeur.convois_participes || 0} services</span>
+                                    <span class="text-purple-400">🏅 ${chauffeur.nombre_badges || 0} badges</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Bouton profil -->
+                            <a href="profil-chauffeur.html?id=${chauffeur.id}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold transition hover-lift">
+                                Voir profil
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Initialiser les animations
+            window.Rewards.observeElements();
+        }
+
+        function displayStats() {
+            const totalLivraisons = chauffeurs.reduce((sum, c) => sum + (c.livraisons || 0), 0);
+            const totalKilometres = chauffeurs.reduce((sum, c) => sum + (c.kilometres || 0), 0);
+            const totalConvois = chauffeurs.reduce((sum, c) => sum + (c.convois_participes || 0), 0);
+
+            document.getElementById('total-chauffeurs').setAttribute('data-counter', chauffeurs.length);
+            document.getElementById('total-livraisons').setAttribute('data-counter', totalLivraisons);
+            document.getElementById('total-kilometres').setAttribute('data-counter', totalKilometres);
+            document.getElementById('total-convois').setAttribute('data-counter', totalConvois);
+
+            window.Rewards.initCounters();
+        }
+
+        function displayPodium() {
+            const top3 = [...chauffeurs]
+                .sort((a, b) => (b.livraisons || 0) - (a.livraisons || 0))
+                .slice(0, 3);
+
+            const container = document.getElementById('podium-container');
+            
+            if (top3.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 col-span-3 text-center">Pas encore de classement</p>';
+                return;
+            }
+
+            const medals = ['🥇', '🥈', '🥉'];
+            const colors = ['from-yellow-400 to-yellow-600', 'from-gray-400 to-gray-600', 'from-orange-400 to-orange-600'];
+            
+            container.innerHTML = top3.map((chauffeur, index) => {
+                const avatar = chauffeur.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(chauffeur.pseudo)}&size=128&background=2563eb&color=fff`;
+                
+                return `
+                    <div class="bg-slate-800 p-8 rounded-xl text-center hover-lift hover-glow animate-scale-in" style="animation-delay: ${index * 0.2}s">
+                        <div class="text-6xl mb-4">${medals[index]}</div>
+                        <img src="${avatar}" alt="${chauffeur.pseudo}" class="w-24 h-24 rounded-full border-4 border-yellow-400 mx-auto mb-4">
+                        <h3 class="text-2xl font-black text-white mb-2">${chauffeur.pseudo}</h3>
+                        <div class="flex items-center justify-center gap-2 mb-4">
+                            <span class="text-3xl">${chauffeur.rang_icone || '🔰'}</span>
+                            <span class="text-lg text-gray-400">${chauffeur.rang_nom || 'Apprenti'}</span>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Services</span>
+                                <span class="text-yellow-400 font-bold">${chauffeur.livraisons || 0}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Kilomètres</span>
+                                <span class="text-blue-400 font-bold">${(chauffeur.kilometres || 0).toLocaleString()}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Badges</span>
+                                <span class="text-purple-400 font-bold">${chauffeur.nombre_badges || 0}</span>
+                            </div>
+                        </div>
+                        <a href="profil-chauffeur.html?id=${chauffeur.id}" class="mt-6 block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold transition">
+                            Voir profil
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterBy(type) {
+            currentFilter = type;
+            
+            // Mettre à jour les boutons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-600');
+                btn.classList.add('bg-slate-800');
+            });
+            document.getElementById(`filter-${type}`).classList.add('active', 'bg-blue-600');
+            document.getElementById(`filter-${type}`).classList.remove('bg-slate-800');
+            
+            // Réafficher avec le nouveau filtre
+            displayChauffeurs();
+        }
+
+        function showEmptyMessage() {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('empty-message').classList.remove('hidden');
+        }
+    </script>
+
+    <style>
+        .filter-btn.active {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+        }
+    </style>
+</body>
+
+</html>
