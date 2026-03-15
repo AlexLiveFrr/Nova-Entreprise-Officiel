@@ -1,179 +1,179 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maintenance | Nova Entreprise Officiel</title>
+    <title>Maintenance | Nova Bus</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="img/logo.png">
+    <meta name="robots" content="noindex, nofollow">
     <style>
-        * { font-family: 'Montserrat', sans-serif; }
+        * {
+            font-family: "Montserrat", sans-serif;
+        }
 
         body {
-            background: #0f172a;
-            overflow: hidden;
+            overflow-x: hidden;
+            background:
+                radial-gradient(1200px 600px at 10% -10%, rgba(147, 51, 234, 0.25), transparent 60%),
+                radial-gradient(1000px 500px at 95% 0%, rgba(59, 130, 246, 0.2), transparent 55%),
+                linear-gradient(180deg, #05080f 0%, #0b1120 40%, #0f172a 100%);
         }
 
-        .bus {
-            animation: drive 8s linear infinite;
-        }
-        @keyframes drive {
-            0% { transform: translateX(-200px); }
-            100% { transform: translateX(calc(100vw + 200px)); }
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 85%);
         }
 
-        .gear {
-            animation: spin 4s linear infinite;
+        .orb {
+            filter: blur(55px);
+            animation: drift 12s ease-in-out infinite alternate;
         }
+
+        @keyframes drift {
+            from { transform: translate3d(0, 0, 0) scale(1); }
+            to { transform: translate3d(18px, -24px, 0) scale(1.08); }
+        }
+
+        .card-glass {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.45));
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            box-shadow:
+                0 24px 80px rgba(0, 0, 0, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .pulse-dot {
+            animation: pulseDot 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 0.45; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.15); }
+        }
+
+        .bar-flow {
+            background: linear-gradient(90deg, #a855f7, #3b82f6, #a855f7);
+            background-size: 220% 100%;
+            animation: barFlow 3.5s linear infinite;
+        }
+
+        @keyframes barFlow {
+            from { background-position: 0 0; }
+            to { background-position: 220% 0; }
+        }
+
+        .ring {
+            animation: spin 16s linear infinite;
+        }
+
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
-        .pulse-slow {
-            animation: pulseSlow 3s ease-in-out infinite;
-        }
-        @keyframes pulseSlow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
-        }
-
-        .float {
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .road-line {
-            animation: roadMove 1.5s linear infinite;
-        }
-        @keyframes roadMove {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-200px); }
-        }
-
-        .stars {
-            animation: twinkle 2s ease-in-out infinite alternate;
-        }
-        @keyframes twinkle {
-            0% { opacity: 0.2; }
-            100% { opacity: 1; }
-        }
     </style>
 </head>
+<body class="min-h-screen relative text-white">
+    <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+    <div class="orb absolute -top-20 -left-16 h-72 w-72 rounded-full bg-purple-500/30 pointer-events-none"></div>
+    <div class="orb absolute top-1/4 -right-24 h-80 w-80 rounded-full bg-blue-500/25 pointer-events-none"></div>
 
-<body class="min-h-screen flex flex-col items-center justify-center relative">
-
-    <!-- Étoiles en fond -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="stars absolute top-[10%] left-[15%] text-white text-xs" style="animation-delay: 0s;">✦</div>
-        <div class="stars absolute top-[5%] left-[40%] text-white text-sm" style="animation-delay: 0.5s;">✦</div>
-        <div class="stars absolute top-[15%] left-[70%] text-yellow-400 text-xs" style="animation-delay: 1s;">✦</div>
-        <div class="stars absolute top-[8%] left-[85%] text-white text-xs" style="animation-delay: 1.5s;">✦</div>
-        <div class="stars absolute top-[20%] left-[55%] text-blue-400 text-sm" style="animation-delay: 0.3s;">✦</div>
-        <div class="stars absolute top-[12%] left-[25%] text-yellow-400 text-xs" style="animation-delay: 0.8s;">✦</div>
-        <div class="stars absolute top-[3%] left-[60%] text-white text-xs" style="animation-delay: 1.2s;">✦</div>
-        <div class="stars absolute top-[18%] left-[90%] text-blue-400 text-xs" style="animation-delay: 0.6s;">✦</div>
-    </div>
-
-    <!-- Contenu Principal -->
-    <div class="text-center z-10 px-6">
-
-        <!-- Logo -->
-        <div class="mb-8 float">
-            <p class="text-purple-400 font-black italic uppercase text-5xl mx-auto mb-4 drop-shadow-2xl">NOVA BUS</p>
-        </div>
-
-        <!-- Engrenage animé -->
-        <div class="mb-8">
-            <span class="gear inline-block text-8xl">⚙️</span>
-        </div>
-
-        <!-- Titre -->
-        <h1 class="text-5xl md:text-7xl font-black uppercase italic text-white mb-4">
-            <span class="text-yellow-400">Site</span> en Maintenance
-        </h1>
-
-        <!-- Sous-titre -->
-        <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Nous effectuons des améliorations pour vous offrir une meilleure expérience.
-        </p>
-
-        <!-- Barre de progression -->
-        <div class="max-w-md mx-auto mb-10">
-            <div class="bg-slate-700 rounded-full h-4 overflow-hidden">
-                <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-full rounded-full pulse-slow" style="width: 99%;"></div>
+    <main class="relative z-10 min-h-screen flex items-center justify-center px-4 py-10">
+        <section class="card-glass w-full max-w-3xl rounded-3xl p-6 md:p-10">
+            <div class="flex items-center justify-between gap-4 mb-7">
+                <div class="text-left">
+                    <p class="text-xs tracking-[0.35em] uppercase text-slate-400">Nova Bus Network</p>
+                    <h1 class="font-black text-3xl md:text-5xl italic uppercase leading-tight mt-2">
+                        <span class="text-purple-400">Maintenance</span>
+                        <span class="text-white"> 2026</span>
+                    </h1>
+                </div>
+                <div class="relative shrink-0 h-16 w-16 md:h-20 md:w-20 rounded-full border border-purple-400/35 flex items-center justify-center bg-slate-950/50">
+                    <div class="ring absolute inset-1 rounded-full border border-blue-400/50 border-dashed"></div>
+                    <span class="text-2xl md:text-3xl">🛠️</span>
+                </div>
             </div>
-            <p class="text-gray-400 text-sm mt-2">Progression estimée : 99%</p>
-        </div>
 
-        <!-- Info -->
-        <div class="bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 max-w-lg mx-auto mb-10">
-            <h2 class="text-xl font-bold text-yellow-400 mb-4">🔧 Travaux en cours</h2>
-            <ul class="text-gray-300 space-y-3 text-left">
-                <li class="flex items-center gap-3">
-                    <span class="text-green-400 text-xl">✅</span>
-                    <span>Mise à jour du système</span>
-                </li>
-                <li class="flex items-center gap-3">
-                    <span class="text-green-400 text-xl">✅</span>
-                    <span>Amélioration des performances</span>
-                </li>
-                <li class="flex items-center gap-3">
-                    <span class="text-yellow-400 text-xl gear">⚙️</span>
-                    <span>Ajout de nouvelles fonctionnalités</span>
-                </li>
-                <li class="flex items-center gap-3">
-                    <span class="text-gray-500 text-xl">⏳</span>
-                    <span class="text-gray-500">Tests et vérifications</span>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Copyright -->
-        <p class="text-gray-600 text-sm italic">
-            "L'excellence sur chaque trajet" - Nova Entreprise Officiel
-        </p>
-        
-    </div>
-
-    <!-- Route en bas -->
-    <div class="absolute bottom-0 left-0 right-0">
-        <!-- Route -->
-        <div class="bg-gray-700 h-16 relative overflow-hidden">
-            <!-- Ligne blanche -->
-            <div class="absolute top-1/2 -translate-y-1/2 left-0 w-[200%] flex gap-8 road-line">
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
-                <div class="w-24 h-1 bg-yellow-400 rounded-full"></div>
+            <div class="mb-6 text-slate-300">
+                <p class="text-base md:text-lg">
+                    On upgrade la plateforme pour un rendu plus rapide, plus propre et plus stable.
+                    Le service revient tres vite.
+                </p>
             </div>
-        </div>
-        <!-- Trottoir -->
-        <div class="bg-gray-800 h-4"></div>
 
-        <!-- Bus animé -->
-        <div class="bus absolute bottom-4 text-6xl">
-            🚌
-        </div>
-    </div>
+            <div class="mb-8">
+                <div class="flex items-center justify-between text-sm mb-2">
+                    <span class="text-slate-300">Etat du deploiement</span>
+                    <span id="deploy-percent" class="font-bold text-purple-300">57%</span>
+                </div>
+                <div class="h-3 rounded-full bg-slate-800 border border-slate-700 overflow-hidden">
+                    <div id="deploy-bar" class="bar-flow h-full rounded-full" data-target="58" style="width: 0%;"></div>
+                </div>
+            </div>
 
-    <footer class="py-6 text-center mt-8">
-        <p class="text-gray-500 text-xs">© 2026 Tous droits réservés AlexLiveFrr — Boosté par l'Intelligence Artificielle</p>
-    </footer>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+                <div class="rounded-xl border border-slate-700 bg-slate-900/55 p-4">
+                    <p class="text-xs uppercase tracking-wider text-slate-400">API</p>
+                    <p class="mt-2 font-bold text-blue-300">Optimisation</p>
+                </div>
+                <div class="rounded-xl border border-slate-700 bg-slate-900/55 p-4">
+                    <p class="text-xs uppercase tracking-wider text-slate-400">Interface</p>
+                    <p class="mt-2 font-bold text-purple-300">Refonte visuelle</p>
+                </div>
+                <div class="rounded-xl border border-slate-700 bg-slate-900/55 p-4">
+                    <p class="text-xs uppercase tracking-wider text-slate-400">Statut</p>
+                    <p class="mt-2 font-bold flex items-center gap-2 text-emerald-300">
+                        <span class="pulse-dot inline-block h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                        En cours
+                    </p>
+                </div>
+            </div>
 
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="location.reload()" class="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-xl font-bold uppercase tracking-wide transition">
+                    Rafraichir
+                </button>
+                <a href="index.html" class="w-full sm:w-auto text-center bg-slate-700 hover:bg-slate-600 px-6 py-3 rounded-xl font-bold uppercase tracking-wide transition">
+                    Retour accueil
+                </a>
+            </div>
+
+            <p class="mt-8 text-xs text-slate-500">
+                © 2026 Nova Bus - Tous droits reserves
+            </p>
+        </section>
+    </main>
+
+    <script>
+        (function animateDeployBar() {
+            const bar = document.getElementById("deploy-bar");
+            const percent = document.getElementById("deploy-percent");
+            if (!bar || !percent) return;
+
+            const target = Math.max(0, Math.min(100, Number(bar.dataset.target) || 0));
+            const duration = 1800;
+            const start = performance.now();
+
+            function step(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const value = Math.round(target * eased);
+
+                bar.style.width = value + "%";
+                percent.textContent = value + "%";
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            }
+
+            requestAnimationFrame(step);
+        })();
+    </script>
 </body>
-
 </html>
